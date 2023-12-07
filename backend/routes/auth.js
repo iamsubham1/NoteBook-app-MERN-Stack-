@@ -1,14 +1,25 @@
 const express = require('express');
-const router = express.Router();
 const User = require('../models/UserSchema');
-
+const { body, validationResult } = require('express-validator');
+const router = express.Router();
 
 //create an user : POST "api/auth/create" this doesnt require authentication for now
-router.get('/a', (req, res) => {
-    const user = User(req.body)
-    user.save()
-    res.send(req.body);
-    console.log(req.body);
+router.post('/a', [
+    body('name').isLength({ min: 3 }),
+    body('email', 'Enter a valid name').isEmail(),
+    body('password', 'The password must include a digit and should be of atleast 8 digits').isLength({ min: 8 }).matches(/\d/)
+], (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    User.create({
+        name: req.body.name,
+        password: req.body.password,
+        email: req.body.email,
+        dob: req.body.dob,
+    }).then(user => res.json(user));
+
 
 
 })
