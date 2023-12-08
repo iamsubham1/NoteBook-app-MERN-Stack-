@@ -2,6 +2,7 @@ const express = require('express');
 const User = require('../models/UserSchema');
 const { body, validationResult } = require('express-validator');
 const router = express.Router();
+const bcrypt = require('bcrypt');
 
 //create an user : POST "api/auth/createuser" this doesnt require authentication for now (express validator gives the validation result)
 router.post('/createuser', [
@@ -26,14 +27,18 @@ router.post('/createuser', [
             if (user) {
                 return res.status(400).json({ msg: "email-id already exists" })
             }
+            //create hashed password adding salt using bcryptjs and store in db
+            const salt = await bcrypt.genSalt(10);
+            const hashedpassword = await bcrypt.hash(req.body.password, salt);
+
             //creating users using "UserSchema"
             user = await User.create({
                 name: req.body.name,
-                password: req.body.password,
+                password: hashedpassword,
                 email: req.body.email,
                 dob: req.body.dob,
             })
-            return res.json({ msg: "user created", user })
+            return res.json({ msg: "user created", hashedpassword, userId: user._id, })
         } catch (error) {
             console.error(error.message)
             return res.status(500).send('Server error ,check try block')
