@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const UserSchema = new Schema({
+const userSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -25,4 +25,6 @@ const UserSchema = new Schema({
 });
 
 //creating a model named createuser using the userschema
-module.exports = mongoose.model('createUser', UserSchema);
+const User = mongoose.model('createUser', userSchema);
+User.createIndexes();
+module.exports = User;

@@ -8,21 +8,29 @@ router.post('/a', [
     body('name').isLength({ min: 3 }),
     body('email', 'Enter a valid name').isEmail(),
     body('password', 'The password must include a digit and should be of atleast 8 digits').isLength({ min: 8 }).matches(/\d/)
-], (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-    User.create({
-        name: req.body.name,
-        password: req.body.password,
-        email: req.body.email,
-        dob: req.body.dob,
-    }).then(user => res.json(user));
+],
+
+    //check for errors
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        let user = await User.create({
+            name: req.body.name,
+            password: req.body.password,
+            email: req.body.email,
+            dob: req.body.dob,
+        })
+            .then(user => res.json(user))//return promise
+            .catch(err => {
+                console.log(err),
+                    res.json({ error: 'enter a valid email', message: err.message })
+            })
 
 
 
-})
+    })
 
 //Export the router for the routes to work as it uses express router
 module.exports = router
