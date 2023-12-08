@@ -24,7 +24,7 @@ const userSchema = new Schema({
     },
 });
 
-//creating a model named createuser using the userschema
+//creating a model named User using the userschema
 const User = mongoose.model('createUser', userSchema);
 User.createIndexes();
 module.exports = User;

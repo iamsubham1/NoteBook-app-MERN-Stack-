@@ -6,7 +6,7 @@ const express = require('express')
 const app = express()
 const port = 4000
 
-//using middleware
+//using middleware to deal with req.body to send a json
 app.use(express.json())
 
 
