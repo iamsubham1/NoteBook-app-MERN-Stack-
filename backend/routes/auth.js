@@ -26,7 +26,7 @@ router.post('/createuser', [
             if (user) {
                 return res.status(400).json({ msg: "email-id already exists" })
             }
-            //create users using "UserSchema"
+            //creating users using "UserSchema"
             user = await User.create({
                 name: req.body.name,
                 password: req.body.password,
