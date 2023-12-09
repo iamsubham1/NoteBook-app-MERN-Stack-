@@ -1,5 +1,4 @@
 
-
 const express = require('express');
 const router = express.Router()
 
@@ -33,7 +32,7 @@ body('tag', 'title is required').exists()],
                 tag: req.body.tag,
 
             })
-            return res.json({ msg: "user created", title: Notes.title })
+            return res.json({ msg: "notes created", title: Notes.title })
 
         } catch (error) {
             console.error(error)
