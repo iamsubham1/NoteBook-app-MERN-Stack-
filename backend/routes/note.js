@@ -36,7 +36,7 @@ body('tag', 'title is required').exists()],
 
         } catch (error) {
             console.error(error)
-            res.status(500)
+            res.status(500).send('Server error ,check try block')
 
         }
     })
