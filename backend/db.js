@@ -1,7 +1,10 @@
+
+// Load environment variables from config.env file and capture the result
+require('dotenv').config({ path: 'config.env' });
 const mongoose = require('mongoose');
 
-// MongoDB connection URI
-const mongoURI = "mongodb://127.0.0.1:27017/notebook"; // IPV4
+// MongoDB connection URI(using dotenv to access environment variable)
+const mongoURI = process.env.MONGODB_URI;  // IPV4
 
 // Function to connect to MongoDB
 const connectToMongo = async () => {
@@ -22,4 +25,5 @@ const connectToMongo = async () => {
 };
 
 // Export the connectToMongo function for use in other parts of the application
+
 module.exports = connectToMongo;
