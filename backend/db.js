@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 // MongoDB connection URI(using dotenv to access environment variable)
 const mongoURI = process.env.MONGODB_URI;  // IPV4
+console.log(mongoURI)
 
 // Function to connect to MongoDB
 const connectToMongo = async () => {
