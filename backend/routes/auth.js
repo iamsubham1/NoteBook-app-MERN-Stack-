@@ -4,9 +4,11 @@ const { body, validationResult } = require('express-validator');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+require('dotenv').config({ path: '.env' });
+const signature = process.env.MONGODB_URI;
 
-const signature = 'thisisjwt'
-//SignUp route :create an user : POST "api/auth/createuser" this doesnt require authentication for now (express validator gives the validation result)
+
+//SignUp route(create an user) express validator gives the validation result
 router.post('/createuser', [
     body('name', 'Enter a valid name').isLength({ min: 3 }),
     body('email', 'Enter a valid email').isEmail(),
