@@ -6,16 +6,17 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const signature = 'thisisjwt'
-//Signup route :create an user : POST "api/auth/createuser" this doesnt require authentication for now (express validator gives the validation result)
+//SignUp route :create an user : POST "api/auth/createuser" this doesnt require authentication for now (express validator gives the validation result)
 router.post('/createuser', [
     body('name', 'Enter a valid name').isLength({ min: 3 }),
     body('email', 'Enter a valid email').isEmail(),
     body('password', 'The password must include a digit and should be of atleast 8 digits').isLength({ min: 8 }).matches(/\d/)
 ],
     async (req, res) => {
-        const errors = validationResult(req);
+
         //checking for expressvalidation results
         try {
+            const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 const errorMessages = errors.array().map(error => {
                     return { msg: `${error.msg}` };
@@ -49,13 +50,44 @@ router.post('/createuser', [
 
         } catch (error) {
             console.error(error.message)
-            return res.status(500).send('Server error ,check try block')
+            return res.status(500).send('internal Server error ')
         }
     })
 
 //login route
-router.post('/login', [],
+router.post('/login',
+    [body('email', 'Enter a valid email').isEmail(),
+    body('password', 'password cant be empty').exists(),],
     async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+
+            return res.status(400).json({ error: errorMessages });
+        }
+        const { email, password } = req.body
+        try {
+            let user = await User.findOne({ email: email });
+            if (!user) {
+                return res.status(400).json({ error: "enter correct credentials" });
+            }
+            const passwordCompare = await bcrypt.compare(password, user.password);
+            if (!passwordCompare) {
+                return res.status(400).json({ error: "enter correct credentials" });
+            }
+
+            const data = {
+                userId: user._id,
+            }
+            const authToken = jwt.sign(data, signature);
+
+            res.json({ authToken })
+
+        }
+        catch (error) {
+            console.error(error.message)
+            return res.status(500).send('internal server error')
+
+        }
 
     })
 //Export the router for the routes to work as it uses express router
