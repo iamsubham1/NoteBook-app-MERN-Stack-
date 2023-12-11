@@ -24,7 +24,6 @@ const startServer = async () => {
     }
 };
 
-// Use try-catch for error handling during MongoDB connection
 const initializeApp = async () => {
     await connectToMongo();
     await startServer();

@@ -3,8 +3,10 @@ const User = require('../models/UserSchema');
 const { body, validationResult } = require('express-validator');
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-//create an user : POST "api/auth/createuser" this doesnt require authentication for now (express validator gives the validation result)
+const signature = 'thisisjwt'
+//Signup route :create an user : POST "api/auth/createuser" this doesnt require authentication for now (express validator gives the validation result)
 router.post('/createuser', [
     body('name', 'Enter a valid name').isLength({ min: 3 }),
     body('email', 'Enter a valid email').isEmail(),
@@ -38,12 +40,23 @@ router.post('/createuser', [
                 email: req.body.email,
                 dob: req.body.dob,
             })
-            return res.json({ msg: "user created", hashedpassword, userId: user._id, })
+
+            const data = {
+                userId: user._id,
+            }
+            const authToken = jwt.sign(data, signature);
+            return res.json({ msg: "user created", Authtoken: authToken })
+
         } catch (error) {
             console.error(error.message)
             return res.status(500).send('Server error ,check try block')
         }
     })
 
+//login route
+router.post('/login', [],
+    async (req, res) => {
+
+    })
 //Export the router for the routes to work as it uses express router
 module.exports = router
