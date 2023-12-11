@@ -1,3 +1,4 @@
+
 // Load environment variables from config.env file and capture the result
 require('dotenv').config({ path: '.env' });
 const mongoose = require('mongoose');
