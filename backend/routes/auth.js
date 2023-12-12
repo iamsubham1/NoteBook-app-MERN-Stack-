@@ -5,7 +5,12 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config({ path: '.env' });
-const signature = process.env.MONGODB_URI;
+
+
+const signature = process.env.signature;
+
+
+const fetchuser = require('../middleware/fetchuser')
 
 
 //SignUp route(create an user) express validator gives the validation result
@@ -34,12 +39,12 @@ router.post('/createuser', [
             }
             //create hashed password adding salt using bcryptjs and store in db
             const salt = await bcrypt.genSalt(10);
-            const hashedpassword = await bcrypt.hash(req.body.password, salt);
+            const secpass = await bcrypt.hash(req.body.password, salt);
 
             //creating users using "UserSchema"
             user = await User.create({
                 name: req.body.name,
-                password: hashedpassword,
+                password: secpass,
                 email: req.body.email,
                 dob: req.body.dob,
             })
@@ -61,6 +66,7 @@ router.post('/login',
     [body('email', 'Enter a valid email').isEmail(),
     body('password', 'password cant be empty').exists(),],
     async (req, res) => {
+        let success = false;
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
 
@@ -78,11 +84,13 @@ router.post('/login',
             }
 
             const data = {
-                userId: user._id,
+                user: {
+                    id: user.id
+                }
             }
-            const authToken = jwt.sign(data, signature);
-
-            res.json({ authToken })
+            const authtoken = jwt.sign(data, signature);
+            success = true;
+            res.json({ success, authtoken })
 
         }
         catch (error) {
@@ -92,5 +100,26 @@ router.post('/login',
         }
 
     })
+
+//Getting loggedin User details
+router.post("/getuser", fetchuser, async (req, res) => {
+    try {
+        userId = req.user.id;
+        console.log({ userId });
+
+        // Assuming User is a Mongoose model
+        const user = await User.findById(userId).select("-password");
+
+        // Sending the response
+        res.send(user);
+
+    } catch (error) {
+        // Handling errors and sending a 500 response in case of an error
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+
 //Export the router for the routes to work as it uses express router
 module.exports = router
