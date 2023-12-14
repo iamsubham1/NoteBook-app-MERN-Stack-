@@ -13,7 +13,7 @@ const signature = process.env.signature;
 const fetchuser = require('../middleware/fetchuser')
 
 
-//SignUp route(create an user) express validator gives the validation result
+//SignUp route(create an user) express validator gives the validation result //Route1
 router.post('/createuser', [
     body('name', 'Enter a valid name').isLength({ min: 3 }),
     body('email', 'Enter a valid email').isEmail(),
@@ -61,7 +61,7 @@ router.post('/createuser', [
         }
     })
 
-//login route
+//login route 
 router.post('/login',
     [body('email', 'Enter a valid email').isEmail(),
     body('password', 'password cant be empty').exists(),],
@@ -105,7 +105,7 @@ router.post('/login',
 router.post("/getuser", fetchuser, async (req, res) => {
     try {
         userId = req.user.id;
-        console.log({ userId });
+        // console.log({ userId });
 
         // Assuming User is a Mongoose model
         const user = await User.findById(userId).select("-password");
