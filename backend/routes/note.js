@@ -33,9 +33,11 @@ router.post('/add', fetchuser, [
     catch (error) {
         res.send(error)
     }
-    const notes = new Notes({
+    const note = new Note({
+        title, description, tag, user: req.user.id
 
     })
+    const savednote = await note.save()
 });
 
 module.exports = router
