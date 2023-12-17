@@ -52,14 +52,17 @@ router.put('/updatenote/:id', fetchuser, [], async (req, res) => {
         if (tag) { newNote.tag = tag }
 
 
-        //find the note you want to update and update it
+        //find the note you want to update 
         let note = await Note.findById(req.params.id)
         if (!note) {
             return res.status(404).send('No such note')
         }
+        //check if the user is allowed to access the note by checking the user id in notes and the id that's coming in req
         if (note.user.toString() !== req.user.id) {
             return res.status(401).send('access denied')
         }
+
+        //update
         note = await Note.findByIdAndUpdate(req.params.id, { $set: newNote }, { new: true })
         res.json({ note })
     }

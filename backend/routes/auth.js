@@ -88,6 +88,7 @@ router.post('/login',
                     id: user.id
                 }
             }
+            //generate auth token
             const authtoken = jwt.sign(data, signature);
             success = true;
             res.json({ success, authtoken })
