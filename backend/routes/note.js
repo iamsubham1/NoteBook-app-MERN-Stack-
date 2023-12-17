@@ -62,4 +62,20 @@ router.put('/updatenote/:id', fetchuser, [], async (req, res) => {
     note = await Note.findByIdAndUpdate(req.params.id, { $set: newNote }, { new: true })
     res.json({ note })
 });
+
+//delete a note 
+router.delete('/deletenote/:id', fetchuser, [], async (req, res) => {
+    //find the note you want to delete and delete it
+    let note = await Note.findById(req.params.id)
+    if (!note) {
+        return res.status(404).send('No such note found')
+    }
+
+    //Allow only if accessed by the actual user
+    if (note.user.toString() !== req.user.id) {
+        return res.status(401).send('access denied')
+    }
+    note = await Note.findByIdAndDelete(req.params.id)
+    res.send("note deleted")
+});
 module.exports = router
