@@ -70,7 +70,7 @@ router.post('/login',
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
 
-            return res.status(400).json({ error: errorMessages });
+            return res.status(400).send(error);
         }
         const { email, password } = req.body
         try {
