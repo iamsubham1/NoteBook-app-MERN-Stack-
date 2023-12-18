@@ -7,10 +7,10 @@ const Navbar = () => {
             <ul>
                 <li>
                     <div className='first-part'>
-                        <a href='#icons'>icon</a>
+                        <i className="icon fa-solid fa-book-open"></i>
                         <div className='links'>
                             <a href="/home">Home</a>
-                            <a href="/about">about</a>
+                            <a href="/about">About</a>
                         </div>
                     </div>
                 </li>
