@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik+Maze&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Allura&display=swap");
+
+#heroelement {
+    background-color: rgba(138, 138, 138, 0.283);
+    height: 100vh;
+    max-width: 100vw;
+    display: grid;
+    place-items: center;
+    align-content: center;
+}
+
+#heroelement>h1 {
+    font-size: 4em;
+    font-family: sans-serif;
+
+    /** TEXT GRADIENT */
+    color: #ffc107;
+    background-image: -webkit-linear-gradient(0deg, #ffc107 1%, #e11b54 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+svg {
+    font-family: "Allura", sans-serif;
+    width: 100%;
+    height: 100%;
+}
+
+svg text {
+    animation: stroke 5s 1;
+    stroke-width: 2;
+    stroke: #ffffff;
+    font-size: 100px;
+
+}
+
+@keyframes stroke {
+    0% {
+        fill: rgba(72, 138, 204, 0);
+        stroke: rgb(5, 160, 142);
+        stroke-dashoffset: 25%;
+        stroke-dasharray: 0 50%;
+        stroke-width: 2;
+    }
+
+    70% {
+        fill: rgba(72, 138, 204, 0);
+        stroke: rgb(5, 160, 142);
+    }
+
+    80% {
+        fill: rgba(72, 138, 204, 0);
+        stroke: rgb(5, 160, 142);
+        stroke-width: 3;
+    }
+
+    100% {
+        fill: rgba(72, 138, 204, 1);
+        stroke: rgba(103, 160, 5, 0);
+        stroke-dashoffset: -25%;
+        stroke-dasharray: 50% 0;
+        stroke-width: 0;
+    }
+}
