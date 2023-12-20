@@ -16,8 +16,8 @@ const Navbar = () => {
                 </li>
                 <li>
                     <div className='second-part'>
-                        <button type='button'>sign up</button>
-                        <button type='button'>login</button>
+                        <button type='button'>Sign Up</button>
+                        <button type='button'>Login</button>
                     </div>
                 </li>
             </ul>

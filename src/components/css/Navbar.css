@@ -28,6 +28,7 @@
 .Navbar>ul>li>.first-part>.icon {
     font-size: 28px;
     margin-left: 2%;
+    color: #93C5FD;
 }
 
 .Navbar>ul>li>.first-part>.links {
@@ -42,7 +43,7 @@
 
 .Navbar>ul>li>.first-part>.links>a {
     text-decoration: none;
-    color: #ffffff;
+    color: #93C5FD;
     font-family: sans-serif;
     transition: .2s;
 }
@@ -66,9 +67,10 @@
 
 .Navbar>ul>li>.second-part>button {
     width: 5vw;
-    height: 3.5vh;
+    height: 4.5vh;
     border-radius: 9%;
+    background-color: #93C5FD;
     font-size: .8em;
-
-
+    border-radius: 9999px;
+    font-weight: 500;
 }
