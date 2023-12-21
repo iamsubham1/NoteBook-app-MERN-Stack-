@@ -1,6 +1,6 @@
 import React from 'react'
 import '../components/css/Navbar.css'
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const Navbar = () => {
     return (
@@ -9,17 +9,26 @@ const Navbar = () => {
                 <li>
                     <div className='first-part'>
                         <i className="icon fa-solid fa-book-open"></i>
-                        <div className='links'>
-                            <Link to="/home">Home</Link>
-                            <Link to="/about">About</Link>
+                        <div className='links' id='links'>
+                            <NavLink to="/home" className={({ isActive, isPending }) =>
+                                isPending ? "pending" : isActive ? "active" : "fresh"
+                            }>Home</NavLink>
+                            <NavLink to="/about" className={({ isActive, isPending }) =>
+                                isPending ? "pending" : isActive ? "active" : "fresh"
+                            }>About</NavLink>
+
 
                         </div>
                     </div>
                 </li>
                 <li>
                     <div className='second-part'>
-                        <button type='button'>Sign Up</button>
-                        <button id='login' type='button'>Login</button>
+                        <Link to="/signup">
+                            <button type='button' className='navBtn'>Sign Up</button>
+                        </Link>
+                        <Link to="/login">
+                            <button id='login' type='button' className='navBtn'>Login</button>
+                        </Link>
                     </div>
                 </li>
             </ul>

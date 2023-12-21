@@ -8,8 +8,7 @@
 body {
   overflow: hidden;
   background-color: rgb(9, 13, 24);
-}
-
-.mb-3>.form-label {
-  color: rgb(224, 224, 224);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

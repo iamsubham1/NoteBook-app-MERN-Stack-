@@ -67,7 +67,7 @@
     font-family: sans-serif
 }
 
-.Navbar>ul>li>.second-part>button {
+.navBtn {
     width: 8vw;
     height: 5vh;
     border-style: none;
@@ -80,9 +80,18 @@
 
 }
 
-.Navbar>ul>li>.second-part>button:hover {
+.navBtn:hover {
     background: linear-gradient(90deg, hsla(218, 89%, 59%, 1) 0%, hsla(218, 89%, 59%, 1) 100%);
 
 }
 
 #login {}
+
+
+#links>.active {
+    color: rgb(163, 212, 254);
+}
+
+#links>.pending {
+    color: rgb(43, 0, 255);
+}
