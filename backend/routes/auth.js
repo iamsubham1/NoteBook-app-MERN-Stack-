@@ -52,6 +52,8 @@ router.post('/createuser', [
             const data = {
                 userId: user._id,
             }
+
+            //generate authtoken
             const authToken = jwt.sign(data, signature);
             return res.json({ msg: "user created", Authtoken: authToken })
 
@@ -112,7 +114,7 @@ router.post("/getuser", fetchuser, async (req, res) => {
         const user = await User.findById(userId).select("-password");
 
         // Sending the response
-        res.send(user);
+        res.status(200).json({ "msg": "user valid" })
 
     } catch (error) {
         // Handling errors and sending a 500 response in case of an error

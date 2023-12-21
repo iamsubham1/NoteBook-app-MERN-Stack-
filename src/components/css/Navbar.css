@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+
 .Navbar {
-    background-color: rgba(91, 91, 91, 0.226);
+    background-color: rgba(231, 231, 231, 0.025);
     width: 100vw;
     min-height: 6vh;
-    color: white;
+
     font-size: 1.2em;
 }
 
@@ -28,7 +30,7 @@
 .Navbar>ul>li>.first-part>.icon {
     font-size: 28px;
     margin-left: 2%;
-    color: #93C5FD;
+    color: #397EF4;
 }
 
 .Navbar>ul>li>.first-part>.links {
@@ -43,16 +45,16 @@
 
 .Navbar>ul>li>.first-part>.links>a {
     text-decoration: none;
-    color: #93C5FD;
-    font-family: sans-serif;
+    color: #8b8b8b;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
     transition: .2s;
 }
 
 .Navbar>ul>li>.first-part>.links>a:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
     cursor: pointer;
-
-
+    color: #397EF4;
 }
 
 .Navbar>ul>li>.second-part {
@@ -66,11 +68,21 @@
 }
 
 .Navbar>ul>li>.second-part>button {
-    width: 5vw;
-    height: 4.5vh;
-    border-radius: 9%;
-    background-color: #93C5FD;
+    width: 8vw;
+    height: 5vh;
+    border-style: none;
+    background: linear-gradient(90deg, hsla(218, 89%, 59%, 1) 0%, hsla(224, 75%, 49%, 1) 100%);
     font-size: .8em;
     border-radius: 9999px;
     font-weight: 500;
+    color: #d9d9d9;
+    font-family: 'Poppins', sans-serif;
+
 }
+
+.Navbar>ul>li>.second-part>button:hover {
+    background: linear-gradient(90deg, hsla(218, 89%, 59%, 1) 0%, hsla(218, 89%, 59%, 1) 100%);
+
+}
+
+#login {}
