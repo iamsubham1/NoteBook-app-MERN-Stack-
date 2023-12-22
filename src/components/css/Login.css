@@ -16,7 +16,7 @@
     flex-direction: column;
     justify-content: space-evenly;
     border: 2px;
-    border-radius: 2%;
+    border-radius: 20px;
     border-color: rgb(184, 230, 255);
     border-style: solid;
     position: relative;
@@ -25,6 +25,7 @@
     background-color: rgba(21, 221, 3, 0);
     padding: 8%;
     bottom: 20%;
+
 
 
 
@@ -63,9 +64,15 @@
 
 }
 
-.loginForm>#lower-section>p>a {
+.loginForm #lower-section p #link {
     text-decoration: none;
     color: rgb(163, 212, 254);
+    transition: .2s;
+    display: inline-block;
+}
+
+.loginForm #lower-section p #link:hover {
+    transform: scale(1.05) !important;
 }
 
 .loginForm>#Textfield>#h1 {

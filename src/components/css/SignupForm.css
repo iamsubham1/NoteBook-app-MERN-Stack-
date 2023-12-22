@@ -6,8 +6,9 @@
     justify-content: center;
     align-items: center;
     width: 25vw;
-    background-color: #a8d0fc;
+    background-color: #8dc1f8;
     margin: auto;
+    border-radius: 20px;
     margin-top: -20%;
     box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
         0 6.7px 5.3px rgba(0, 0, 0, 0.048),
@@ -23,14 +24,21 @@
 }
 
 #paragraph {
-    color: #050b1e;
-    font-weight: 600;
+    color: #ffffff;
+    font-weight: 400;
 
 }
 
-#paragraph>a {
+#paragraph>#link {
     text-decoration: none;
     color: #1F51DA;
+    font-weight: 600;
+    display: inline-block;
+    transition: .2s;
+}
+
+#paragraph>#link:hover {
+    transform: scale(1.05);
     font-weight: 600;
 }
 

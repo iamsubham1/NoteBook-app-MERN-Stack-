@@ -19,7 +19,7 @@ const LoginForm = () => {
             </div>
             <div id='lower-section'>
                 <button type="submit" className="btn btn-primary" id='loginBtn'>Login</button>
-                <p>Dont have an account ? <Link to="/signup">Register</Link></p>
+                <p>Dont have an account ? <Link to="/signup" id='link'>Register</Link></p>
             </div>
         </form>
 

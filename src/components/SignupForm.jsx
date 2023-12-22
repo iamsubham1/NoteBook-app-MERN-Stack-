@@ -21,7 +21,7 @@ const SignupForm = () => {
                     <input type="password" id="password" name="password" className="elem" />
                 </div>
                 <input type="button" value="Create account" className="submit-btn elem" />
-                <p id='paragraph'>Have an account ? <Link to="/login">Login</Link></p>
+                <p id='paragraph'>Have an account ? <Link to="/login" id='link'>Login</Link></p>
             </form>
         </div>
 
