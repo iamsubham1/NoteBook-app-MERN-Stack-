@@ -2,15 +2,16 @@ import React from 'react'
 import '../components/css/Navbar.css'
 import { Link, NavLink } from 'react-router-dom';
 
+
 const Navbar = () => {
     return (
         <div className='Navbar'>
             <ul>
                 <li>
                     <div className='first-part'>
-                        <i className="icon fa-solid fa-book-open"></i>
+                        <i class="fa-solid fa-book icon"></i>
                         <div className='links' id='links'>
-                            <NavLink to="/home" className={({ isActive, isPending }) =>
+                            <NavLink to="/" className={({ isActive, isPending }) =>
                                 isPending ? "pending" : isActive ? "active" : "fresh"
                             }>Home</NavLink>
                             <NavLink to="/about" className={({ isActive, isPending }) =>

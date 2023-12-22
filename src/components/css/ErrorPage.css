@@ -1,0 +1,47 @@
+.page_404 {
+
+    background: #e10a0a00;
+    font-family: 'Arvo', serif;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+}
+
+.page_404 img {
+    width: 100%;
+}
+
+.four_zero_four_bg {
+    background-image: url(https://media.giphy.com/media/14uQ3cOFteDaU/giphy.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 60vh;
+
+}
+
+.link_404 {
+    color: #000000;
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+    padding: 10px 20px;
+    background: #93C5FD;
+    margin: 20px 0;
+    display: inline-block;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: ease-in-out.2s;
+}
+
+.link_404:hover {
+    transform: scale(1.08);
+}
+
+.contant_box_404 {
+    margin-top: -2%;
+    color: #cecfcf;
+    font-family: 'Poppins', sans-serif;
+}

@@ -8,6 +8,7 @@
     display: grid;
     place-items: center;
     align-content: center;
+    margin-top: -5%;
 }
 
 #heroelement>h1 {
@@ -19,7 +20,7 @@
     background-image: -webkit-linear-gradient(0deg, #ffc107 1%, #e11b54 100%);
     background-clip: text;
     -webkit-background-clip: text;
-    text-fill-color: transparent;
+
     -webkit-text-fill-color: transparent;
 }
 
@@ -32,15 +33,16 @@ svg {
 svg text {
     animation: stroke 5s 1;
     stroke-width: 2;
-    stroke: #ffffff;
+    stroke: #A3D4FE;
     font-size: 6rem;
+    fill: #A3D4FE;
 
 }
 
 @keyframes stroke {
     0% {
         fill: rgba(72, 138, 204, 0);
-        stroke: rgb(5, 160, 142);
+        stroke: #A3D4FE;
         stroke-dashoffset: 25%;
         stroke-dasharray: 0 50%;
         stroke-width: 2;
@@ -48,18 +50,18 @@ svg text {
 
     70% {
         fill: rgba(72, 138, 204, 0);
-        stroke: rgb(5, 160, 142);
+        stroke: #A3D4FE;
     }
 
     80% {
         fill: rgba(72, 138, 204, 0);
-        stroke: rgb(5, 160, 142);
+        stroke: #A3D4FE;
         stroke-width: 3;
     }
 
     100% {
-        fill: rgba(72, 138, 204, 1);
-        stroke: rgba(103, 160, 5, 0);
+        fill: #A3D4FE;
+        stroke: #A3D4FE;
         stroke-dashoffset: -25%;
         stroke-dasharray: 50% 0;
         stroke-width: 0;

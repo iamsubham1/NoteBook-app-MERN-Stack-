@@ -2,19 +2,37 @@
     color: rgb(163, 212, 254);
 }
 
+#Textfield {
+
+    background-color: rgba(237, 18, 18, 0);
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+
+}
 
 .loginForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
     border: 2px;
     border-radius: 2%;
     border-color: rgb(184, 230, 255);
     border-style: solid;
-    padding: 10%;
     position: relative;
-    width: 25vw;
+    width: 22vw;
     height: 45vh;
-    background-color: rgba(255, 0, 0, 0);
+    background-color: rgba(21, 221, 3, 0);
+    padding: 8%;
     bottom: 30%;
-    display: grid;
+
+
+
+}
+
+#lower-section {
+    text-align: center;
+    background-color: rgba(8, 240, 240, 0);
 }
 
 #emailHelp {
@@ -26,14 +44,26 @@
 }
 
 #loginBtn {
-    color: rgb(232, 232, 232);
+    color: rgb(255, 255, 255);
     background: linear-gradient(90deg, hsla(218, 89%, 59%, 1) 0%, hsla(224, 75%, 49%, 1) 100%);
-    padding: 0;
     font-size: 1.2em;
+    margin: auto;
+
 
 }
 
 
 #loginBtn:hover {
     background: linear-gradient(90deg, hsla(218, 89%, 59%, 1) 0%, hsla(218, 89%, 59%, 1) 100%);
+}
+
+.loginForm>#lower-section>p {
+    margin-top: 6%;
+    color: rgb(167, 167, 167);
+
+}
+
+.loginForm>#lower-section>p>a {
+    text-decoration: none;
+    color: rgb(163, 212, 254);
 }

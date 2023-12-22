@@ -1,13 +1,13 @@
 import React from 'react'
-import LoginForm from './LoginForm'
+import SignupForm from './SignupForm'
 import './css/LoginPage.css'
 
-const LoginPage = () => {
+const SignupPage = () => {
     return (
         <div className='wrapper'>
-            <LoginForm />
+            <SignupForm />
         </div>
     )
 }
 
-export default LoginPage
+export default SignupPage

@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
 
 .Navbar {
+    margin-top: 0.8%;
     background-color: rgba(231, 231, 231, 0.025);
     width: 100vw;
     min-height: 6vh;
-
     font-size: 1.2em;
 }
 
@@ -30,7 +30,7 @@
 .Navbar>ul>li>.first-part>.icon {
     font-size: 28px;
     margin-left: 2%;
-    color: #397EF4;
+    color: #1655c2;
 }
 
 .Navbar>ul>li>.first-part>.links {
@@ -64,7 +64,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    font-family: sans-serif
+    font-family: 'Poppins', sans-serif;
 }
 
 .navBtn {

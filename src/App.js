@@ -4,6 +4,8 @@ import HeroElement from './components/HeroElement';
 
 import { BrowserRouter as Router, Route, Routes, } from 'react-router-dom';
 import LoginPage from './components/LoginPage';
+import ErrorPage from './components/ErrorPage';
+// import SignupPage from './components/SignupPage';
 
 
 const App = () => (
@@ -12,9 +14,11 @@ const App = () => (
     <Navbar />
 
     <Routes>
-      <Route path="/home" element={<HeroElement />} />
+      <Route path="/" element={<HeroElement />} />
       <Route path="/about" element={<LoginPage />} />
       <Route path="/login" element={<LoginPage />} />
+      {/* <Route path="/signup" element={<SignupPage />} /> */}
+      <Route path="*" element={<ErrorPage />} />
 
     </Routes>
   </Router>
