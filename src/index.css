@@ -6,8 +6,8 @@
 }
 
 body {
-  overflow: hidden;
-  width: 100vw;
+  overflow-x: hidden;
+  max-width: 100vw;
   background-color: rgb(5, 11, 30);
   display: flex;
   justify-content: center;
