@@ -1,6 +1,6 @@
 import React from 'react'
 import SignupForm from './SignupForm'
-import './css/LoginPage.css'
+import './css/SignupPage.css'
 
 const SignupPage = () => {
     return (

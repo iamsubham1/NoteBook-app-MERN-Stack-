@@ -21,10 +21,10 @@
     border-style: solid;
     position: relative;
     width: 22vw;
-    height: 45vh;
+    height: 55vh;
     background-color: rgba(21, 221, 3, 0);
     padding: 8%;
-    bottom: 30%;
+    bottom: 20%;
 
 
 
@@ -66,4 +66,8 @@
 .loginForm>#lower-section>p>a {
     text-decoration: none;
     color: rgb(163, 212, 254);
+}
+
+.loginForm>#Textfield>#h1 {
+    color: #ffffff;
 }

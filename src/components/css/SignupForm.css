@@ -1,51 +1,38 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto);
-
-
-:root {
-    --primary-color: #022c22;
-    --secondary-color: #f0fdfa;
-}
-
-html * {
-    font-family: 'Roboto', sans-serif !important;
-
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    width: 100vw;
-    color: var(--secondary-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .form-container {
-    height: 550px;
+    height: 70vh;
     text-align: center;
     display: flex;
-    width: auto;
     align-items: center;
-    justify-content: flex-end;
-    width: 1200px;
-    background-color: var(--primary-color);
-
-    box-shadow:
-        0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    justify-content: center;
+    align-items: center;
+    width: 25vw;
+    background-color: #a8d0fc;
+    margin: auto;
+    margin-top: -20%;
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
         0 6.7px 5.3px rgba(0, 0, 0, 0.048),
         0 12.5px 10px rgba(0, 0, 0, 0.06),
         0 22.3px 17.9px rgba(0, 0, 0, 0.072),
         0 41.8px 33.4px rgba(0, 0, 0, 0.086),
         0 100px 80px rgba(0, 0, 0, 0.12);
-    transition: all 0.3s;
+
 }
 
-.form-container:hover {
-    transform: scale(1.01) perspective(1px);
+#h1 {
+    color: #484848;
 }
 
+#paragraph {
+    color: #050b1e;
+    font-weight: 600;
+
+}
+
+#paragraph>a {
+    text-decoration: none;
+    color: #1F51DA;
+    font-weight: 600;
+}
 
 .form-container>form {
     display: flex;
@@ -60,49 +47,44 @@ body {
 .submit-btn {
     width: 35%;
     font-size: medium;
-    background-color: transparent;
-    color: var(--secondary-color);
+    background-color: rgb(0, 128, 255);
+    color: black;
     border: none;
-    transition: all 0.3s;
+    transition: all 0.1s;
+    font-weight: 600;
 }
 
 .submit-btn:hover {
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
+    background-color: black;
+    color: whitesmoke;
     font-weight: bold;
     outline: none;
     transform: scale(1.08) perspective(1px);
 
 }
 
-
-img {
-    height: 100%;
-    width: auto;
-    flex: 1 1 0px;
-}
-
-.fname-container,
-.lname-container,
+.name-container,
+.password-container,
 .email-container {
     position: relative;
     width: 50%;
 }
 
-label {
+.label {
     position: absolute;
     left: -10px;
     top: -15px;
     z-index: 1;
-    background-color: var(--primary-color);
+    background-color: #a8d0fc;
     padding-right: 5%;
+    font-weight: 600;
 }
 
 input {
     background: transparent;
     border: none;
     height: 30px;
-    outline: white solid;
+    outline: rgb(255, 248, 248) solid;
     font-size: medium;
     color: var(--secondary-color);
     padding-left: 3%;
@@ -112,20 +94,7 @@ input {
 }
 
 input:focus {
-    outline: green solid;
-    transform: scale(1.03) perspective(1px);
+    outline: rgb(0, 0, 0) solid;
+    transform: scale(1.06);
 
-}
-
-.mymouse {
-    z-index: 2;
-    position: absolute;
-    height: 30px;
-    width: 30px;
-    background-color: transparent;
-    border-radius: 50%;
-    outline: black solid;
-    transform: translateX(-50%) translateY(-50%);
-    pointer-events: none;
-    transition: all 100ms ease-out;
 }

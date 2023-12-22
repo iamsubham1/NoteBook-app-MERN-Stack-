@@ -18,7 +18,7 @@ const ErrorPage = () => {
 
                         <p>the page you are looking for is not avaible!</p>
 
-                        <a href="/" class="link_404">Go to Home</a>
+                        <Link to="/" class="link_404">Go to Home</Link>
                     </div>
                 </div>
             </div>
