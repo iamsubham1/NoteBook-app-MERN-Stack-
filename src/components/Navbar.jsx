@@ -4,12 +4,20 @@ import { Link, NavLink } from 'react-router-dom';
 
 
 const Navbar = () => {
+    const paragraphStyle = {
+        color: 'white',
+        fontSize: '12px',
+        display: 'inline',
+        marginLeft: '10px',
+        fontFamily: 'poppins'
+        // Add any other styles as needed
+    };
     return (
         <div className='Navbar'>
             <ul>
                 <li>
                     <div className='first-part'>
-                        <i class="fa-solid fa-book icon"></i>
+                        <i class="fa-solid fa-book icon"><p style={paragraphStyle}>Quick Memo</p></i>
                         <div className='links' id='links'>
                             <NavLink to="/" className={({ isActive, isPending }) =>
                                 isPending ? "pending" : isActive ? "active" : "fresh"
