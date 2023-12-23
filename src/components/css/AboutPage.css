@@ -63,6 +63,7 @@ h1 {
 
 .fa-node {
     color: #69b653;
+
 }
 
 .fa-react {
@@ -70,11 +71,11 @@ h1 {
 }
 
 .fa-js {
-    color: yellow;
+    color: #EFD81D
 }
 
 .fa-html5 {
-    color: orangered;
+    color: #e96228
 }
 
 .fa-css3-alt {
