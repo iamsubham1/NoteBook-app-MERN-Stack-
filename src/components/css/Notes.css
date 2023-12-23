@@ -1,0 +1,59 @@
+.Container {
+    background-color: rgba(255, 0, 0, 0);
+    width: 100vw;
+    font-weight: 600;
+    height: 100vh;
+}
+
+.notesForm {
+    background-color: rgba(149, 149, 149, 0.082);
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 1%;
+    height: 55vh;
+    border-radius: 5%;
+
+}
+
+.title {
+    width: 73%;
+    color: #000;
+}
+
+#colorChange {
+    color: #9a9a9a;
+
+}
+
+.dropdown {
+    max-width: 50%;
+
+
+}
+
+.dropdown-toggle {
+    background-color: #878787;
+    color: #000000;
+    font-weight: 600;
+
+}
+
+.topWrapper {
+    background-color: rgba(255, 0, 0, 0.015);
+    width: 28vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: last baseline;
+
+
+}
+
+.createBtn {
+    margin-top: 5%;
+    width: 10vw;
+    align-self: center;
+    font-weight: 600;
+
+}

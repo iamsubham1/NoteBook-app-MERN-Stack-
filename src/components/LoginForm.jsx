@@ -9,11 +9,11 @@ const LoginForm = () => {
             <div id='Textfield'>
                 <h1 id='h1'>Login</h1>
                 <div className="mb-3">
-                    <label for="emailInput" className="form-label" id='label'>Email address</label>
+                    <label htmlfor="emailInput" className="form-label" id='label'>Email address</label>
                     <input type="email" className="form-control" id="emailInput" aria-describedby="emailHelp" />
                 </div>
                 <div className="mb-3">
-                    <label for="passwordInput" className="form-label">Password</label>
+                    <label htmlfor="passwordInput" className="form-label">Password</label>
                     <input type="password" className="form-control" id="passwordInput" />
                 </div>
             </div>

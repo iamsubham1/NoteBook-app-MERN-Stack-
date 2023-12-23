@@ -12,7 +12,7 @@ const AboutPage = () => {
 
     };
     const imageStyle1 = {
-        maxHeight: '10vh'
+        maxHeight: '12vh'
     };
 
     return (

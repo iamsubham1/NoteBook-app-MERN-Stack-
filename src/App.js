@@ -6,6 +6,7 @@ import LoginPage from './components/LoginPage';
 import ErrorPage from './components/ErrorPage';
 import SignupPage from './components/SignupPage';
 import AboutPage from './components/AboutPage';
+import Notes from './components/Notes';
 
 const App = () => {
 
@@ -13,6 +14,7 @@ const App = () => {
   return (
     <Router>
       <Navbar />
+
       <Routes>
 
         <Route path="/" element={<HeroElement />} />
@@ -22,6 +24,7 @@ const App = () => {
         <Route path="*" element={<ErrorPage />} />
 
       </Routes>
+      <Notes />
     </Router>
   )
 }
