@@ -12,17 +12,38 @@
 }
 
 #heroelement>h1 {
-    font-size: 2em;
-    font-family: sans-serif;
+    color: #6b6b6ba2;
 
-    /** TEXT GRADIENT */
-    color: #ffc107;
-    background-image: -webkit-linear-gradient(0deg, #ffc107 1%, #e11b54 100%);
+}
+
+
+@keyframes textGradientChange {
+    0% {
+        background-position: 0%;
+    }
+
+    100% {
+        background-position: 100%;
+    }
+}
+
+.text-gradient-animation {
+    background: linear-gradient(to right, #ffffff, #5ccff5);
+    /* Replace with your desired colors */
     background-clip: text;
     -webkit-background-clip: text;
+    color: transparent;
+    background-size: 500% 300%;
+    animation: textGradientChange .9s linear infinite alternate;
+    /* Adjust the duration and timing function as needed */
+    font-family: poppins;
+    font-size: 25px;
+    font-weight: 600;
 
-    -webkit-text-fill-color: transparent;
 }
+
+
+
 
 svg {
     font-family: "Allura", sans-serif;
