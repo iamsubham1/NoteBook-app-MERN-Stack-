@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Routes, } from 'react-router-dom';
 import LoginPage from './components/LoginPage';
 import ErrorPage from './components/ErrorPage';
 import SignupPage from './components/SignupPage';
-
+import AboutPage from './components/AboutPage';
 
 const App = () => (
 
@@ -15,7 +15,7 @@ const App = () => (
 
     <Routes>
       <Route path="/" element={<HeroElement />} />
-      {/* <Route path="/about" element={<LoginPage />} /> */}
+      <Route path="/about" element={<AboutPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="*" element={<ErrorPage />} />
