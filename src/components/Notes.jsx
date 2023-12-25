@@ -6,7 +6,7 @@ const Notes = () => {
     const [notesData, setNotesData] = useState({
         title: '',
         description: '',
-        Tag: '',
+        tag: '',
     });
 
     const handleInput = (e) => {
@@ -19,15 +19,31 @@ const Notes = () => {
     const handleTagSelection = (tag) => {
         setNotesData({
             ...notesData,
-            Tag: tag,
+            tag: tag,
         });
     };
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        try {
+            const response = await fetch(`http://localhost:4000/api/notes/addnotes`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU4OTgzMjIwZjhjZjMyZDQxY2Y5MWMzIn0sImlhdCI6MTcwMzUxMTU0NX0.WYwV8yaClJESQLXLlwGJcdOXvTvc9TAXMBJtYWvNBa8"
+                },
+                body: JSON.stringify(notesData)
+            })
+            console.log(response)
+        }
+        catch (error) {
+            console.log(error)
+
+        }
         // Add logic to handle the submission of the form (e.g., save the note)
         console.log('Note Submitted:', notesData);
+        alert('memo created')
     };
 
     return (
@@ -45,7 +61,6 @@ const Notes = () => {
                             placeholder='example title'
                             value={notesData.title}
                             onChange={handleInput}
-                            required
                             autoComplete='off'
                             name='title'
                         />
@@ -83,7 +98,7 @@ const Notes = () => {
                     ></textarea>
                 </div>
 
-                <button type="submit" className="btn btn-primary createBtn" onClick={handleSubmit}>Create</button>
+                <button type="submit" className="btn btn-primary createBtn">Create</button>
             </form>
         </div>
     );

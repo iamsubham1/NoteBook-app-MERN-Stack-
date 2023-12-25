@@ -1,7 +1,19 @@
 const connectToMongo = require('./db');
 const express = require('express');
 const app = express();
-const port = 6000;
+const port = 4000;
+const cors = require('cors')
+
+
+
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    methods: "GET,POST,PUT,DELETE,HEAD",
+    credentials: true
+}
+
+//handling cors
+app.use(cors(corsOptions))
 
 
 const startServer = async () => {

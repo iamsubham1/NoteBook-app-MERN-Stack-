@@ -1,4 +1,5 @@
 
+
 import React, { useState } from 'react'
 import './css/Login.css'
 import { Link } from 'react-router-dom'
@@ -18,14 +19,30 @@ const LoginForm = () => {
         })
 
     }
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault();
         console.log('login succesfully', userData);
+        alert('login successfully')
 
+        try {
+            const response = await fetch(`http://localhost:4000/api/auth/login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(userData)
+            })
+            console.log(response)
+        }
+        catch (error) {
+            console.log(error)
+
+        }
     }
-    return (
 
-        <form className='loginForm'>
+
+    return (
+        <form className='loginForm' onSubmit={submit}>
             <div id='Textfield'>
                 <h1 id='h1'>Login</h1>
                 <div className="mb-3">
@@ -42,12 +59,10 @@ const LoginForm = () => {
                 </div>
             </div>
             <div id='lower-section'>
-                <button type="submit" className="btn btn-primary" id='loginBtn' onClick={submit}>Login</button>
+                <button type="submit" className="btn btn-primary" id='loginBtn'>Login</button>
                 <p>Dont have an account ? <Link to="/signup" id='link'>Register</Link></p>
             </div>
         </form>
-
-
     )
 }
 

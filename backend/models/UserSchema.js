@@ -18,10 +18,7 @@ const userSchema = new Schema({
 
 
     },
-    dob: {
-        type: Date,
-        required: true,
-    },
+
 });
 
 //creating a model named User using the userschema
