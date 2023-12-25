@@ -1,5 +1,5 @@
 .form-container {
-    height: 70vh;
+    height: 60vh;
     text-align: center;
     display: flex;
     align-items: center;
@@ -9,7 +9,7 @@
     background-color: #8dc1f8;
     margin: auto;
     border-radius: 20px;
-    margin-top: -20%;
+    margin-top: 20px;
     box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
         0 6.7px 5.3px rgba(0, 0, 0, 0.048),
         0 12.5px 10px rgba(0, 0, 0, 0.06),
@@ -75,7 +75,7 @@
 .password-container,
 .email-container {
     position: relative;
-    width: 50%;
+    width: 70%;
 }
 
 .label {

@@ -16,7 +16,14 @@
     border-radius: 5%;
 
 }
-
+.dropdown-menu>li>a{
+    cursor: pointer;
+   
+}
+.dropdown-menu>li>a:hover{
+    color:#ffffff ;
+    background-color: rgb(108, 185, 248);
+}
 .title {
     width: 73%;
     color: #000;
