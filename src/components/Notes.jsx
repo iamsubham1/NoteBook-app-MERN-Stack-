@@ -3,6 +3,7 @@ import '../components/css/Notes.css';
 
 const Notes = () => {
 
+    const [loading, setLoading] = useState(false);
     const [notesData, setNotesData] = useState({
         title: '',
         description: '',
@@ -16,6 +17,7 @@ const Notes = () => {
             [name]: value,
         });
     };
+
     const handleTagSelection = (tag) => {
         setNotesData({
             ...notesData,
@@ -26,7 +28,12 @@ const Notes = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!notesData.tag || !notesData.title) {
+            alert('Please select a tag.');
+            return;
+        }
         try {
+            setLoading(true);
             const response = await fetch(`http://localhost:4000/api/notes/addnotes`, {
                 method: "POST",
                 headers: {
@@ -34,16 +41,33 @@ const Notes = () => {
                     "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU4OTgzMjIwZjhjZjMyZDQxY2Y5MWMzIn0sImlhdCI6MTcwMzUxMTU0NX0.WYwV8yaClJESQLXLlwGJcdOXvTvc9TAXMBJtYWvNBa8"
                 },
                 body: JSON.stringify(notesData)
-            })
-            console.log(response)
-        }
-        catch (error) {
-            console.log(error)
+            });
 
+            if (!response.ok) {
+                // Handle HTTP error
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            // const responseData = await response.json();
+            alert('Memo created successfully');
+            // console.log('Server response:', responseData);
+
+            // Reset tag after submission
+            setNotesData({
+                title: '',
+                description: '',
+                tag: '',
+            });
+
+        } catch (error) {
+            console.error('Error:', error.message);
+            if (error.message.includes('500')) {
+                alert('A memo with the same title already exists.');
+            } else {
+                alert('Failed to create memo. Please try again.');
+            }
+        } finally {
+            setLoading(false);
         }
-        // Add logic to handle the submission of the form (e.g., save the note)
-        console.log('Note Submitted:', notesData);
-        alert('memo created')
     };
 
     return (
@@ -71,8 +95,9 @@ const Notes = () => {
                             type="button"
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
+                            required
                         >
-                            {notesData.selectedTag ? notesData.selectedTag : 'Tags'}
+                            {notesData.tag ? notesData.tag : 'Tags'}
                         </button>
                         <ul className="dropdown-menu">
                             <li><a className="dropdown-item" onClick={() => handleTagSelection('Work')}>Work</a></li>
@@ -98,7 +123,7 @@ const Notes = () => {
                     ></textarea>
                 </div>
 
-                <button type="submit" className="btn btn-primary createBtn">Create</button>
+                <button type="submit" className="btn btn-primary createBtn" disabled={loading || !notesData.tag || !notesData.title}>{loading ? 'Creating...' : 'Create'}</button>
             </form>
         </div>
     );
