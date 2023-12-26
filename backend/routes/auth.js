@@ -6,6 +6,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config({ path: '.env' });
 
+
+
 // get signature from .env
 const signature = process.env.signature;
 
@@ -35,6 +37,7 @@ router.post('/createuser', [
             // console.log(user)
 
             if (user) {
+                console.log("email id exists")
                 return res.status(400).json({ msg: "email-id already exists" })
             }
             //create hashed password adding salt using bcryptjs and store in db
@@ -55,7 +58,10 @@ router.post('/createuser', [
 
             //generate authtoken
             const authToken = jwt.sign(data, signature);
-            return res.json({ msg: "user created", Authtoken: authToken })
+            res.cookie('authToken', authToken,
+                { httpOnly: true });
+
+            return res.json({ "authtoken": authToken });
 
         } catch (error) {
             console.error(error.message)
@@ -64,45 +70,49 @@ router.post('/createuser', [
     })
 
 //login route 
-router.post('/login',
-    [body('email', 'Enter a valid email').isEmail(),
-    body('password', 'password cant be empty').exists(),],
-    async (req, res) => {
-        let success = false;
+router.post('/login', [
+    body('email', 'Enter a valid email').isEmail(),
+    body('password', 'Password cannot be empty').exists(),
+], async (req, res) => {
+    try {
         const errors = validationResult(req);
+
         if (!errors.isEmpty()) {
-
-            return res.status(400).send(error);
-        }
-        const { email, password } = req.body
-        try {
-            let user = await User.findOne({ email: email });
-            if (!user) {
-                return res.status(400).json({ error: "enter correct credentials" });
-            }
-            const passwordCompare = await bcrypt.compare(password, user.password);
-            if (!passwordCompare) {
-                return res.status(400).json({ error: "enter correct credentials" });
-            }
-
-            const data = {
-                user: {
-                    id: user.id
-                }
-            }
-            //generate auth token
-            const authtoken = jwt.sign(data, signature);
-            success = true;
-            res.json({ success, authtoken })
-
-        }
-        catch (error) {
-            console.error(error.message)
-            return res.status(500).send('internal server error')
-
+            console.log('Validation errors:', errors.array());
+            return res.status(400).json({ success: false, errors: errors.array() });
         }
 
-    })
+        const { email, password } = req.body;
+
+        let user = await User.findOne({ email });
+
+        if (!user) {
+            console.log('User not found for email:', email);
+            return res.status(400).json({ success: false, error: "Enter correct credentials" });
+        }
+
+        const passwordCompare = await bcrypt.compare(password, user.password);
+
+        if (!passwordCompare) {
+            console.log('Incorrect password for user:', email);
+            return res.status(400).json({ success: false, error: "Enter correct credentials" });
+        }
+
+        const data = {
+            user: {
+                id: user.id
+            }
+        }
+
+        // Generate auth token
+        const authtoken = jwt.sign(data, signature);
+        res.status(200).cookie('auth-token', authtoken, { httpOnly: true, secure: true, sameSite: 'None' }).json({ success: true, authtoken });
+
+    } catch (error) {
+        console.error('Error during login:', error);
+        return res.status(500).json({ success: false, error: 'Internal server error' });
+    }
+});
 
 //Getting loggedin User details
 router.post("/getuser", fetchuser, async (req, res) => {

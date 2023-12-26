@@ -20,6 +20,8 @@ router.post('/addnotes', fetchuser, [
     body('title', 'cant be empty').exists(),
     body('description', 'cant be empty').isLength({ min: 1 }),
 ], async (req, res) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header('Access-Control-Allow-Credentials', 'true');
     const { title, description, tag } = req.body;
     try {
         const errors = validationResult(req);
@@ -29,21 +31,16 @@ router.post('/addnotes', fetchuser, [
             });
             return res.status(400).json({ error: errorMessages });
         }
-        const note = new Note({
-            title, description, tag, user: req.user.id
-
-        })
-        const savednote = await note.save()
-
-        res.json(savednote)
-
     }
     catch (error) {
         res.status(500).send("internal server error")
-
     }
+    const note = new Note({
+        title, description, tag, user: req.user.id
 
-
+    })
+    const savednote = await note.save()
+    res.json(savednote)
 });
 //update existing notes(login required)
 router.put('/updatenote/:id', fetchuser, [], async (req, res) => {

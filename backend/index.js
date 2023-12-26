@@ -3,8 +3,7 @@ const express = require('express');
 const app = express();
 const port = 4000;
 const cors = require('cors')
-
-
+const cookieParser = require('cookie-parser');
 
 const corsOptions = {
     origin: 'http://localhost:3000',
@@ -14,8 +13,8 @@ const corsOptions = {
 
 //handling cors
 app.use(cors(corsOptions))
-
-
+//handling cookies
+app.use(cookieParser());
 const startServer = async () => {
     try {
 

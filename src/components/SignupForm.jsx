@@ -25,12 +25,23 @@ const SignupForm = () => {
         try {
             const response = await fetch(`http://localhost:4000/api/auth/createuser`, {
                 method: 'POST',
+
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(userData)
             })
-            console.log(response)
+            if (response.ok) {
+                // Handle successful login
+                alert('Login successful');
+                // Redirect or perform other actions
+            }
+            // Set state or display an alert to the user
+            else {
+                // Handle other status codes as needed
+                alert('fill it properly');
+                // Set state or display an alert to the user
+            }
 
         } catch (error) {
             console.log(error)

@@ -1,74 +1,78 @@
 import React, { useState } from 'react';
-import '../components/css/Notes.css';
+import '../components/css/Notes.css'
 
 const Notes = () => {
-
+    console.log('All Cookies:', document.cookie);
     const [loading, setLoading] = useState(false);
-    const [notesData, setNotesData] = useState({
+    const [noteData, setNoteData] = useState({
         title: '',
         description: '',
         tag: '',
     });
 
-    const handleInput = (e) => {
+    const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setNotesData({
-            ...notesData,
+        setNoteData({
+            ...noteData,
             [name]: value,
         });
     };
 
     const handleTagSelection = (tag) => {
-        setNotesData({
-            ...notesData,
-            tag: tag,
+        setNoteData({
+            ...noteData,
+            tag,
         });
     };
 
+    // Function to get the value of a cookie by its name
+    const getCookie = (name) => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+
+
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!notesData.tag || !notesData.title) {
-            alert('Please select a tag.');
-            return;
-        }
+        const authToken = getCookie('auth-token');
+
+        console.log('All Cookies:', document.cookie);
+
         try {
             setLoading(true);
-            const response = await fetch(`http://localhost:4000/api/notes/addnotes`, {
-                method: "POST",
+
+            // Retrieve the token from the cookie
+
+            const response = await fetch('http://localhost:4000/api/notes/addnotes', {
+                method: 'POST',
                 headers: {
-                    "Content-Type": "application/json",
-                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU4OTgzMjIwZjhjZjMyZDQxY2Y5MWMzIn0sImlhdCI6MTcwMzUxMTU0NX0.WYwV8yaClJESQLXLlwGJcdOXvTvc9TAXMBJtYWvNBa8"
+                    'Content-Type': 'application/json',
+                    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU4YWI3N2Q1ZjYxNGRiYmJjYjRjMmJjIn0sImlhdCI6MTcwMzU5MDA2Mn0.8g98_wQQUERVPcGZjKCHS91rHc6QXH1N_tZIKT1lQmI',
                 },
-                body: JSON.stringify(notesData)
+                body: JSON.stringify(noteData),
             });
 
             if (!response.ok) {
-                // Handle HTTP error
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                const errorMessage = await response.text(); // Extract error message from response
+                throw new Error(`HTTP error! Status: ${response.status}. ${errorMessage}`);
             }
-            // const responseData = await response.json();
-            alert('Memo created successfully');
-            // console.log('Server response:', responseData);
 
-            // Reset tag after submission
-            setNotesData({
+            alert('Memo created successfully');
+            setNoteData({
                 title: '',
                 description: '',
                 tag: '',
             });
-
         } catch (error) {
             console.error('Error:', error.message);
-            if (error.message.includes('500')) {
-                alert('A memo with the same title already exists.');
-            } else {
-                alert('Failed to create memo. Please try again.');
-            }
+            alert(`Failed to create memo. ${error.message}`);
         } finally {
             setLoading(false);
         }
     };
+
 
     return (
         <div className='Container'>
@@ -83,8 +87,8 @@ const Notes = () => {
                             id="Title"
                             aria-describedby="emailHelp"
                             placeholder='example title'
-                            value={notesData.title}
-                            onChange={handleInput}
+                            value={noteData.title}
+                            onChange={handleInputChange}
                             autoComplete='off'
                             name='title'
                         />
@@ -97,7 +101,7 @@ const Notes = () => {
                             aria-expanded="false"
                             required
                         >
-                            {notesData.tag ? notesData.tag : 'Tags'}
+                            {noteData.tag ? noteData.tag : 'Tags'}
                         </button>
                         <ul className="dropdown-menu">
                             <li><a className="dropdown-item" onClick={() => handleTagSelection('Work')}>Work</a></li>
@@ -117,16 +121,40 @@ const Notes = () => {
                         autoComplete='off'
                         rows="4"
                         cols="50"
-                        value={notesData.description}
-                        onChange={handleInput}
+                        value={noteData.description}
+                        onChange={handleInputChange}
                         name='description'
                     ></textarea>
                 </div>
 
-                <button type="submit" className="btn btn-primary createBtn" disabled={loading || !notesData.tag || !notesData.title}>{loading ? 'Creating...' : 'Create'}</button>
+                <button type="submit" className="btn btn-primary createBtn" disabled={loading || !noteData.tag || !noteData.title}>{loading ? 'Creating...' : 'Create'}</button>
             </form>
         </div>
     );
 };
 
 export default Notes;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
