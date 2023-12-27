@@ -32,15 +32,15 @@ const SignupForm = () => {
                 body: JSON.stringify(userData)
             })
             if (response.ok) {
-                // Handle successful login
-                alert('Login successful');
+
+                alert('account created');
                 // Redirect or perform other actions
             }
-            // Set state or display an alert to the user
+
             else {
-                // Handle other status codes as needed
-                alert('fill it properly');
-                // Set state or display an alert to the user
+
+                alert('form cannot be blank');
+
             }
 
         } catch (error) {

@@ -15,13 +15,20 @@ router.get('/fetch', fetchuser, async (req, res) => {
     res.json(notes)
 
 })
+
+router.options('/addnotes', (req, res) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.status(200).end();
+});
 //add notes
 router.post('/addnotes', fetchuser, [
     body('title', 'cant be empty').exists(),
     body('description', 'cant be empty').isLength({ min: 1 }),
 ], async (req, res) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Credentials', 'true');
+    console.log('Request Headers:', req.headers);
     const { title, description, tag } = req.body;
     try {
         const errors = validationResult(req);

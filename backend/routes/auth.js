@@ -105,8 +105,8 @@ router.post('/login', [
         }
 
         // Generate auth token
-        const authtoken = jwt.sign(data, signature);
-        res.status(200).cookie('auth-token', authtoken, { httpOnly: true, secure: true, sameSite: 'None' }).json({ success: true, authtoken });
+        const authToken = jwt.sign(data, signature);
+        res.status(200).cookie('Auth-token', authToken, { httpOnly: true, secure: true, sameSite: 'None', path: '/' }).json({ success: true, authToken });
 
     } catch (error) {
         console.error('Error during login:', error);
@@ -136,3 +136,9 @@ router.post("/getuser", fetchuser, async (req, res) => {
 
 //Export the router for the routes to work as it uses express router
 module.exports = router
+
+
+
+
+
+

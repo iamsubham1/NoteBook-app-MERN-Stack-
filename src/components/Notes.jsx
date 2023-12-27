@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../components/css/Notes.css'
 
 const Notes = () => {
-    console.log('All Cookies:', document.cookie);
+
     const [loading, setLoading] = useState(false);
     const [noteData, setNoteData] = useState({
         title: '',
@@ -29,33 +29,32 @@ const Notes = () => {
     const getCookie = (name) => {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-
-
+        if (parts.length === 2) {
+            return parts.pop().split(';').shift();
+        }
+        return null; // Return null if the cookie is not found
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const authToken = getCookie('auth-token');
 
-        console.log('All Cookies:', document.cookie);
-
+        // Retrieve the token from the cookie
+        const authToken = getCookie('Auth-token');
+        console.log(authToken);
         try {
             setLoading(true);
-
-            // Retrieve the token from the cookie
-
             const response = await fetch('http://localhost:4000/api/notes/addnotes', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU4YWI3N2Q1ZjYxNGRiYmJjYjRjMmJjIn0sImlhdCI6MTcwMzU5MDA2Mn0.8g98_wQQUERVPcGZjKCHS91rHc6QXH1N_tZIKT1lQmI',
+                    'Auth-token': authToken
                 },
                 body: JSON.stringify(noteData),
+                credentials: 'include'
             });
 
             if (!response.ok) {
-                const errorMessage = await response.text(); // Extract error message from response
+                const errorMessage = await response.text();
                 throw new Error(`HTTP error! Status: ${response.status}. ${errorMessage}`);
             }
 
@@ -65,6 +64,7 @@ const Notes = () => {
                 description: '',
                 tag: '',
             });
+
         } catch (error) {
             console.error('Error:', error.message);
             alert(`Failed to create memo. ${error.message}`);

@@ -21,20 +21,16 @@ const LoginForm = () => {
 
     const submit = async (e) => {
         e.preventDefault();
-        setError(null);
-        setSuccess(null); // Reset any previous success message
+        // Reset any previous success message
 
-        if (!userData.email || !userData.password) {
-            setError('Please enter both email and password.');
-            return;
-        }
+
 
         try {
             const response = await fetch('http://localhost:4000/api/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'auth-token': 'your-auth-token-here', // Add your actual auth token
+
                 },
                 body: JSON.stringify(userData),
                 credentials: 'include',
@@ -42,13 +38,15 @@ const LoginForm = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                setSuccess('Login successful!'); // Set success message
+                alert('login successfull');
                 console.log('Login successful:', data);
                 // Optionally, you can redirect to another page after successful login
                 // window.location.href = '/home';
-            } else {
-                const errorData = await response.json();
-                setError(errorData.error || 'An error occurred during login.');
+            }
+            else if (response.status === 400) {
+
+
+                alert('Incorrect credentials');
             }
         } catch (error) {
             console.error('Network error:', error);
