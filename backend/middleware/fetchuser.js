@@ -6,7 +6,7 @@ const signature = process.env.signature;
 
 const fetchuser = (req, res, next) => {
     // Get the userdetails from the jwt token 
-    const token = req.header('Auth-token');
+    const token = req.header('JWT');
     console.log('Received token:', token);
     try {
         const data = jwt.verify(token, signature);

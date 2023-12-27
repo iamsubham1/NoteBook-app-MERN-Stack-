@@ -105,8 +105,8 @@ router.post('/login', [
         }
 
         // Generate auth token
-        const authToken = jwt.sign(data, signature);
-        res.status(200).cookie('Auth-token', authToken, { httpOnly: true, secure: true, sameSite: 'None', path: '/' }).json({ success: true, authToken });
+        const token = jwt.sign(data, signature);
+        res.status(200).cookie('JWT', token, { httpOnly: true, maxAge: 100 * 1000, secure: true, sameSite: 'None', path: '/' }).json({ success: true, token });
 
     } catch (error) {
         console.error('Error during login:', error);

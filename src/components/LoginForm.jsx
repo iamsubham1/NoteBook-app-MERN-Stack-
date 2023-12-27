@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import './css/Login.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
+    const navigate = useNavigate();
     const [userData, setUserData] = useState({
         email: '',
         password: '',
     });
-
-    const [error, setError] = useState(null);      //state for credential errors
-    const [success, setSuccess] = useState(null); // state for login suceess
-
     const handleInput = (e) => {
         const { name, value } = e.target;
         setUserData({
@@ -22,9 +19,6 @@ const LoginForm = () => {
     const submit = async (e) => {
         e.preventDefault();
         // Reset any previous success message
-
-
-
         try {
             const response = await fetch('http://localhost:4000/api/auth/login', {
                 method: 'POST',
@@ -40,6 +34,7 @@ const LoginForm = () => {
                 const data = await response.json();
                 alert('login successfull');
                 console.log('Login successful:', data);
+                navigate('/');
                 // Optionally, you can redirect to another page after successful login
                 // window.location.href = '/home';
             }
@@ -50,7 +45,7 @@ const LoginForm = () => {
             }
         } catch (error) {
             console.error('Network error:', error);
-            setError('A network error occurred. Please try again later.');
+
         }
     };
 
@@ -60,8 +55,7 @@ const LoginForm = () => {
 
             <div id='Textfield'>
                 <h1 id='h1'>Login</h1>
-                {error && <div className="alert alert-danger" role="alert">{error}</div>}
-                {success && <div className="alert alert-success" role="alert">{success}</div>}
+
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label" id='label'>
                         Email address

@@ -39,15 +39,15 @@ const Notes = () => {
         e.preventDefault();
 
         // Retrieve the token from the cookie
-        const authToken = getCookie('Auth-token');
-        console.log(authToken);
+        const token = getCookie('JWT');
+        console.log(token);
         try {
             setLoading(true);
-            const response = await fetch('http://localhost:4000/api/notes/addnotes', {
+            const response = await fetch('/api/notes/addnotes', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Auth-token': authToken
+                    'JWT': token
                 },
                 body: JSON.stringify(noteData),
                 credentials: 'include'
