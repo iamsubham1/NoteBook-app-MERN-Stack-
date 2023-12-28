@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import '../components/css/SignupForm.css'
 const SignupForm = () => {
-
+    const navigate = useNavigate();
     const [userData, setuserData] = useState({
         name: '',
         email: '',
@@ -32,7 +32,7 @@ const SignupForm = () => {
                 body: JSON.stringify(userData)
             })
             if (response.ok) {
-
+                navigate('/login');
                 alert('account created');
                 // Redirect or perform other actions
             }
