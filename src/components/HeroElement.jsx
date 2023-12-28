@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import React, { useEffect } from 'react'
 import '../components/css/HeroElement.css'
 import { getCookie } from '../utils/getCookie';
+import ViewNotes from './ViewNotes';
 
 const HeroElement = () => {
     const navigate = useNavigate();
@@ -30,6 +31,7 @@ const HeroElement = () => {
                 <h1>Create your Memo</h1>
                 <Link to='/create' className="text-gradient-animation" >now !</Link>
             </div>
+            <ViewNotes />
         </div>
     )
 }

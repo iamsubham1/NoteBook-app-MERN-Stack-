@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'
 import '../components/css/Notes.css'
 
 const Notes = () => {
-
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [noteData, setNoteData] = useState({
         title: '',
@@ -59,6 +60,7 @@ const Notes = () => {
             }
 
             alert('Memo created successfully');
+            navigate('/');
             setNoteData({
                 title: '',
                 description: '',
