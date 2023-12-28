@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik+Maze&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Allura&display=swap");
 
-
+@import url('https://fonts.googleapis.com/css2?family=Diphylleia&family=Poppins:wght@300;400&display=swap');
 
 #container{
     background-color: #ff030300;
@@ -64,10 +64,10 @@ background-color: rgba(91, 116, 10, 0);
 
 }
 svg {
-    font-family: "Allura", sans-serif;
+    font-family: 'Poppins', sans-serif;
     width: 100%;
     height: 100%;
-    font-size: 6vw;
+    font-size: 4vw;
     margin-top: 15vh;
 }
 

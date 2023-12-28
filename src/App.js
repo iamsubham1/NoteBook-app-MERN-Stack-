@@ -1,13 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Navbar from './components/Navbar';
-import HeroElement from './components/HeroElement';
 import { BrowserRouter as Router, Route, Routes, } from 'react-router-dom';
 import LoginPage from './components/LoginPage';
 import ErrorPage from './components/ErrorPage';
 import SignupPage from './components/SignupPage';
 import AboutPage from './components/AboutPage';
 import Notes from './components/Notes';
-import ViewNotes from './components/ViewNotes';
+import HomePage from './components/HeroPage';
 
 const App = () => {
 
@@ -16,7 +15,7 @@ const App = () => {
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<HeroElement />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import '../components/css/Notes.css'
 
 const Notes = () => {
@@ -106,9 +106,9 @@ const Notes = () => {
                         {noteData.tag ? noteData.tag : 'Tags'}
                     </button>
                     <ul className="dropdown-menu">
-                        <li><a className="dropdown-item" onClick={() => handleTagSelection('Work')}>Work</a></li>
-                        <li><a className="dropdown-item" onClick={() => handleTagSelection('Personal')}>Personal</a></li>
-                        <li><a className="dropdown-item" onClick={() => handleTagSelection('Other')}>Other</a></li>
+                        <li><Link className="dropdown-item" onClick={() => handleTagSelection('Work')}>Work</Link></li>
+                        <li><Link className="dropdown-item" onClick={() => handleTagSelection('Personal')}>Personal</Link></li>
+                        <li><Link className="dropdown-item" onClick={() => handleTagSelection('Other')}>Other</Link></li>
                     </ul>
                 </div>
             </div>
