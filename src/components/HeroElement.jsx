@@ -20,19 +20,23 @@ const HeroElement = () => {
         // If token is present, user stays on the home page
     }, [navigate]);
     return (
-        <div id="heroelement">
-            <svg>
-                <text x="50%" y="50%" dy=".35em" textAnchor="middle">
-                    Welcome to NoteBook-app
-                </text>
+        <div id='container'>
+            <section id="welcome-section" className='section'>
+                <div id='heroElement'>
+                    <svg>
+                        <text x="50%" y="50%" dy=".35em" textAnchor="middle">
+                            Welcome to Quick-Memo
 
-            </svg>
-            <div className='flex-container'>
-                <h1>Create your Memo</h1>
-                <Link to='/create' className="text-gradient-animation" >now !</Link>
+                        </text>
+
+                    </svg>
+                    <h2>"QuickMemo – your instant note companion!"</h2>
+                </div>
+
+            </section>
+            <section className='section' id="notes-section">
                 <ViewNotes />
-            </div>
-
+            </section>
         </div>
     )
 }

@@ -108,7 +108,7 @@ router.post('/login', [
         const token = jwt.sign(data, signature);
         res.status(200).cookie('JWT', token, {
             httpOnly: false,
-            maxAge: 3600000,
+            maxAge: 120 * 60 * 10000,
             secure: true,
             sameSite: 'None',
             path: '/'

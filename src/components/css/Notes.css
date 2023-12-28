@@ -3,6 +3,7 @@
     width: 100vw;
     font-weight: 600;
     height: 100vh;
+    caret-color: black;
 }
 
 .notesForm {

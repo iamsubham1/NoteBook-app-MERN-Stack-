@@ -37,7 +37,7 @@ const ViewNotes = () => {
     };
 
     return (
-        <div>
+        <div className='container'>
             <h2>Your Notes</h2>
             <button onClick={fetchNotes} disabled={loading} className="btn btn-secondary" >
                 {loading ? 'Fetching...' : showNotes ? 'Hide Notes' : 'Show Notes'}
@@ -54,7 +54,7 @@ const ViewNotes = () => {
                                 <div className="card-body">
                                     <h5 className="card-title">{note.title}</h5>
                                     <p className="card-text">{note.description}</p>
-                                    {/* Add any other note details you want to display */}
+
                                 </div>
                             </div>
                         </div>

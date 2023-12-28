@@ -15,9 +15,7 @@ const App = () => {
   return (
     <Router>
       <Navbar />
-
       <Routes>
-
         <Route path="/" element={<HeroElement />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/login" element={<LoginPage />} />
