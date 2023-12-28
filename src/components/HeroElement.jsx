@@ -30,8 +30,9 @@ const HeroElement = () => {
             <div className='flex-container'>
                 <h1>Create your Memo</h1>
                 <Link to='/create' className="text-gradient-animation" >now !</Link>
+                <ViewNotes />
             </div>
-            <ViewNotes />
+
         </div>
     )
 }
