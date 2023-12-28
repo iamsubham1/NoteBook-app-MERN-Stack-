@@ -1,10 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './css/AboutPage.css'
 import mongodb from '../assets/mongodb-ar21.svg'
 import express from '../assets/expressjs-ar21.svg'
 import firebase from '../assets/firebase-icon.svg'
+import { getCookie } from '../utils/getCookie';
+import { useNavigate } from 'react-router-dom'
 const AboutPage = () => {
 
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        // Check for the presence of the JWT token in cookies
+        const JWT = getCookie('JWT');
+        // console.log(JWT)
+        // console.log(document.cookie);
+
+        if (!JWT) {
+            // If token is not present, navigate to login
+            navigate('/login');
+        }
+        // If token is present, user stays on the home page
+    }, [navigate]);
     const imageStyle = {
 
         maxHeight: '11vh'

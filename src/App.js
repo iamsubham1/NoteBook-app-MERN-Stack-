@@ -7,6 +7,7 @@ import ErrorPage from './components/ErrorPage';
 import SignupPage from './components/SignupPage';
 import AboutPage from './components/AboutPage';
 import Notes from './components/Notes';
+import ViewNotes from './components/ViewNotes';
 
 const App = () => {
 
