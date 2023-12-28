@@ -36,6 +36,19 @@ const ViewNotes = () => {
         }
     };
 
+    const getColors = (() => {
+        const colors = ['#D7F8F2', '#DABBFA', '#92AEF7', '#FFF5E1', '#514983', '756AB6'];
+        let index = 0;
+
+        return () => {
+            const color = colors[index];
+            index = (index + 1) % colors.length; // Move to the next color, and loop back to the beginning if needed
+            return color;
+        };
+    })();
+
+
+
     return (
         <div className='container'>
             <h2>Your Notes</h2>
@@ -47,14 +60,17 @@ const ViewNotes = () => {
             {error && <p>{error}</p>}
 
             {showNotes && (
-                <div className="row">
+                <div className="row" id='row'>
                     {notes.map((note) => (
-                        <div key={note._id} className="col-md-4">
-                            <div className="card mb-4 shadow-sm">
-                                <div className="card-body">
+                        <div key={note._id} className="col-md-6">
+                            <div className="card mb-4 shadow-sm" id='idk'>
+                                <div
+                                    className="card-body"
+                                    id='card-body'
+                                    style={{ backgroundColor: getColors() }}
+                                >
                                     <h5 className="card-title">{note.title}</h5>
                                     <p className="card-text">{note.description}</p>
-
                                 </div>
                             </div>
                         </div>

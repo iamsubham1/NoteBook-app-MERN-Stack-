@@ -77,61 +77,61 @@ const Notes = () => {
 
 
     return (
-        <div className='Container'>
-            <form className='notesForm' onSubmit={handleSubmit}>
-                <h1>Create Memo</h1>
-                <div className='topWrapper'>
-                    <div className="mb-3 title">
-                        <label htmlFor="Title" className="form-label" id='colorChange'>Title</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="Title"
-                            aria-describedby="emailHelp"
-                            placeholder='example title'
-                            value={noteData.title}
-                            onChange={handleInputChange}
-                            autoComplete='off'
-                            name='title'
-                        />
-                    </div>
-                    <div className="dropdown">
-                        <button
-                            className="btn btn-secondary dropdown-toggle"
-                            type="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                            required
-                        >
-                            {noteData.tag ? noteData.tag : 'Tags'}
-                        </button>
-                        <ul className="dropdown-menu">
-                            <li><a className="dropdown-item" onClick={() => handleTagSelection('Work')}>Work</a></li>
-                            <li><a className="dropdown-item" onClick={() => handleTagSelection('Personal')}>Personal</a></li>
-                            <li><a className="dropdown-item" onClick={() => handleTagSelection('Other')}>Other</a></li>
-                        </ul>
-                    </div>
-                </div>
 
-                <div className="mb-3">
-                    <label htmlFor="Description" className="form-label" id='colorChange'>Description</label>
-                    <textarea
+        <form className='notesForm' onSubmit={handleSubmit}>
+            <h1>Create Memo</h1>
+            <div className='topWrapper'>
+                <div className="mb-3 title">
+                    <label htmlFor="Title" className="form-label" id='colorChange'>Title</label>
+                    <input
+                        type="text"
                         className="form-control"
-                        id="Description"
-                        placeholder='write your memo here...'
-                        required
-                        autoComplete='off'
-                        rows="4"
-                        cols="50"
-                        value={noteData.description}
+                        id="Title"
+                        aria-describedby="emailHelp"
+                        placeholder='example title'
+                        value={noteData.title}
                         onChange={handleInputChange}
-                        name='description'
-                    ></textarea>
+                        autoComplete='off'
+                        name='title'
+                    />
                 </div>
+                <div className="dropdown">
+                    <button
+                        className="btn btn-secondary dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        required
+                    >
+                        {noteData.tag ? noteData.tag : 'Tags'}
+                    </button>
+                    <ul className="dropdown-menu">
+                        <li><a className="dropdown-item" onClick={() => handleTagSelection('Work')}>Work</a></li>
+                        <li><a className="dropdown-item" onClick={() => handleTagSelection('Personal')}>Personal</a></li>
+                        <li><a className="dropdown-item" onClick={() => handleTagSelection('Other')}>Other</a></li>
+                    </ul>
+                </div>
+            </div>
 
-                <button type="submit" className="btn btn-primary createBtn" disabled={loading || !noteData.tag || !noteData.title}>{loading ? 'Creating...' : 'Create'}</button>
-            </form>
-        </div>
+            <div className="mb-3">
+                <label htmlFor="Description" className="form-label" id='colorChange'>Description</label>
+                <textarea
+                    className="form-control"
+                    id="Description"
+                    placeholder='write your memo here...'
+                    required
+                    autoComplete='off'
+                    rows="4"
+                    cols="50"
+                    value={noteData.description}
+                    onChange={handleInputChange}
+                    name='description'
+                ></textarea>
+            </div>
+
+            <button type="submit" className="btn btn-primary createBtn" disabled={loading || !noteData.tag || !noteData.title}>{loading ? 'Creating...' : 'Create'}</button>
+        </form>
+
     );
 };
 

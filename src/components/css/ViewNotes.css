@@ -1,5 +1,32 @@
 .container{
-background-color: rgb(204, 0, 255);
-    width: 50vw;
-    height: 40vh;
+background-color: rgba(123, 123, 123, 0.141);
+    width: 45vw;
+    height: 65vh;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    padding: 3%;
+}
+.container>h2{
+    color: #8BC4FD
+}
+/* Add this style in your CSS file or inline style in your React component */
+#row {
+    overflow-y: scroll;
+   }
+
+#row::-webkit-scrollbar {
+    height: 8px;
+    width: 2px;
+    
+    
+}
+
+#idk{
+    border:solid 2px rgba(255, 255, 255, 0);
+}
+#card-body{
+   
+    
+    border-radius: 5px
 }

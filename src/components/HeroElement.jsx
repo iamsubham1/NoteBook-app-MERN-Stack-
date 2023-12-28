@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import React, { useEffect } from 'react'
 import '../components/css/HeroElement.css'
 import { getCookie } from '../utils/getCookie';
+import Notes from './Notes';
 import ViewNotes from './ViewNotes';
 
 const HeroElement = () => {
@@ -35,7 +36,13 @@ const HeroElement = () => {
 
             </section>
             <section className='section' id="notes-section">
-                <ViewNotes />
+                <div className='create-section'>
+                    <Notes />
+                </div>
+                <div className='view-section'>
+                    <ViewNotes />
+                </div>
+
             </section>
         </div>
     )
