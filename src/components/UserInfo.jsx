@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import '../components/css/UserInfo.css'
 import { getCookie } from '../utils/getCookie';
+import userImg from '../assets/user.png'
 
 const UserInfo = () => {
     const [userInfo, setUserInfo] = useState(null);
@@ -16,7 +18,7 @@ const UserInfo = () => {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'JWT': token// Assuming you store the token in localStorage
+                        'JWT': token
                     },
 
                     credentials: 'include',
@@ -29,14 +31,14 @@ const UserInfo = () => {
                 const data = await response.json();
                 setUserInfo(data.user);
                 setLoading(false);
+
+
             } catch (error) {
                 console.error('Error:', error.message);
                 setError('Error fetching user info');
                 setLoading(false);
             }
         };
-
-        // Call the fetchUserInfo function
         fetchUserInfo();
     }, []);
 
@@ -48,13 +50,27 @@ const UserInfo = () => {
         return <div>Error: {error}</div>;
     }
 
-    return (
-        <div>
-            <h1>User Information</h1>
-            <p>User ID: {userInfo._id}</p>
-            <p>Email: {userInfo.email}</p>
-            {/* Add other user details as needed */}
-        </div>
+    return (<>
+        <div id='Wrapper' >
+            <img src={userImg} style={{ width: "9%" }} id='userImg'></img>
+
+            <div id='mainSection' >
+
+                <div id='accountSection' >
+
+                    <h1 style={{ textTransform: 'capitalize' }}> {userInfo.name}</h1>
+                    <p > {userInfo.email}</p>
+                    <div id='span'  > <h3 >{userInfo.notes.length}</h3>
+                        <p>Notes</p></div>
+
+                </div>
+
+
+
+            </div>
+        </div >
+    </>
+
     );
 };
 

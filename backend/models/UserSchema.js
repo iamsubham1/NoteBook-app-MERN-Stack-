@@ -18,7 +18,9 @@ const userSchema = new Schema({
 
 
     },
-
+    notes: {
+        type: Array
+    }
 });
 
 //creating a model named User using the userschema

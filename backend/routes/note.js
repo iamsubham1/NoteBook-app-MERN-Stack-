@@ -4,6 +4,7 @@ const router = express.Router()
 const fetchuser = require('../middleware/fetchuser')
 //import the noteschema
 const Note = require('../models/NoteSchema');
+const User = require('../models/UserSchema');
 //import express validator
 const { body, validationResult } = require('express-validator');
 
@@ -42,12 +43,20 @@ router.post('/addnotes', fetchuser, [
     catch (error) {
         res.status(500).send("internal server error")
     }
+
+
     const note = new Note({
         title, description, tag, user: req.user.id
 
     })
     const savednote = await note.save()
-    res.json(savednote)
+
+    const updatedUser = await User.findOneAndUpdate(
+        { _id: req.user.id },
+        { $push: { notes: savednote } },
+        { new: true }
+    );
+    res.json(savednote);
 });
 //update existing notes(login required)
 router.put('/updatenote/:id', fetchuser, [], async (req, res) => {
