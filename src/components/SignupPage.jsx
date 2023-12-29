@@ -1,10 +1,10 @@
 import React from 'react'
 import SignupForm from './SignupForm'
-import './css/SignupPage.css'
+import './css/LoginPage.css'
 
 const SignupPage = () => {
     return (
-        <div className='wrapper'>
+        <div id='wrapper'>
             <SignupForm />
         </div>
     )

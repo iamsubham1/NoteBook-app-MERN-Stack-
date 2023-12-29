@@ -1,19 +1,19 @@
-.Container {
-    margin-top: -6%;
-    display: flex;
+#Container {
+     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
     width: 100vw;
     height: 80vh;
-    background-color: rgba(240, 248, 255, 0);
-    font-family: poppins
+    background-color: rgba(15, 126, 223, 0);
+    font-family: poppins;
+    position: absolute;
+    margin-top: 5%;
 }
 
 h1 {
     color: #8bc4fd;
 }
-
 #divider {
     content: "";
     width: .1%;
@@ -41,6 +41,7 @@ h1 {
     text-align: center;
     padding: 2%;
     color: rgba(201, 201, 201, 0.686);
+
 
 }
 

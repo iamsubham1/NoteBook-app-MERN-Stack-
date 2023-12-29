@@ -4,7 +4,7 @@ import './css/LoginPage.css'
 
 const LoginPage = () => {
     return (
-        <div className='wrapper'>
+        <div id='wrapper'>
             <LoginForm />
         </div>
     )

@@ -130,7 +130,7 @@ router.post("/getuser", fetchuser, async (req, res) => {
         const user = await User.findById(userId).select("-password");
 
         // Sending the response
-        res.status(200).json({ "msg": "user valid" })
+        res.status(200).json({ "msg": "user valid", user })
 
     } catch (error) {
         // Handling errors and sending a 500 response in case of an error

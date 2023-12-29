@@ -32,14 +32,12 @@ const AboutPage = () => {
     };
 
     return (
-        <div className='Container'>
+        <div id='Container'>
             <div className='section-1' id='section1'>
                 <h1>About the product</h1>
                 <p>QuickMemo is not just a cloud platform,it's your personal space in the digital sky, where organization meets simplicity. Say goodbye to scattered notes and missed memos – with QuickMemo, managing your thoughts and ideas has never been easier.</p>
             </div>
             <div id='divider'></div>
-
-
             <div className='section-2' id='section2'>
                 <h1>Technologies Used</h1>
                 <div id='grid'>

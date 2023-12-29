@@ -7,6 +7,7 @@ import SignupPage from './components/SignupPage';
 import AboutPage from './components/AboutPage';
 import Notes from './components/Notes';
 import HomePage from './components/HeroPage';
+import UserInfo from './components/UserInfo';
 
 const App = () => {
 
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/create" element={<Notes />} />
         <Route path="*" element={<ErrorPage />} />
+        <Route path="/userinfo" element={<UserInfo />} />
 
       </Routes>
 
