@@ -52,7 +52,7 @@ const UserInfo = () => {
 
     return (<>
         <div id='Wrapper' >
-            <img src={userImg} style={{ width: "9%" }} id='userImg'></img>
+            <img src={userImg} style={{ width: "9%" }} id='userImg' alt=''></img>
 
             <div id='mainSection' >
 

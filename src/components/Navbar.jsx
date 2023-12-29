@@ -58,7 +58,7 @@ const Navbar = () => {
                                 <NavLink
                                     to="/"
                                     onClick={() => slowSetProgress([10, 30, 60, 100])}
-                                    activeClassName="active"
+                                    activeclassName="active"
                                     className="fresh"
                                 >
                                     Home
@@ -66,7 +66,7 @@ const Navbar = () => {
                                 <NavLink
                                     to="/about"
                                     onClick={() => slowSetProgress([10, 30, 60, 100])}
-                                    activeClassName="active"
+                                    activeclassName="active"
                                     className="fresh"
                                 >
                                     About
