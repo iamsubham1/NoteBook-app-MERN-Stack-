@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import LoadingBar from 'react-top-loading-bar';
 import { getCookie } from '../utils/getCookie';
 import { logout } from '../utils/logout';
+
 import '../components/css/Navbar.css'
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const token = getCookie('JWT');
 
     const [progress, setProgress] = useState(0);
@@ -22,7 +24,7 @@ const Navbar = () => {
         }
     };
 
-    const paragraphStyle = {
+    const brandStyle = {
         color: 'white',
         fontSize: '12px',
         display: 'inline',
@@ -30,13 +32,12 @@ const Navbar = () => {
         fontFamily: 'poppins',
     };
     const handleLogout = () => {
-
         logout();
         slowSetProgress([10, 30, 60, 100]);
         navigate('/login');
     };
     const getUserInfo = () => {
-        // Navigate to the user info component when clicking on the user icon
+        slowSetProgress([10, 30, 60, 100]);
         navigate('/userinfo');
     };
     return (
@@ -51,7 +52,7 @@ const Navbar = () => {
                     <li>
                         <div className='first-part'>
                             <i className="fa-solid fa-book icon">
-                                <p style={paragraphStyle}>Quick Memo</p>
+                                <p style={brandStyle}>Quick Memo</p>
                             </i>
                             <div className='links' id='links'>
                                 <NavLink
@@ -77,7 +78,9 @@ const Navbar = () => {
                         <div className='second-part'>
                             {token ? (
                                 // If authenticated, show logout button
-                                <> <i className="fa-solid fa-user" id='userIcon' onClick={getUserInfo}></i>
+                                <> <i className={`fa-solid fa-user ${location.pathname === '/userinfo' ? 'active-icon' : ''}`}
+                                    id='userIcon'
+                                    onClick={getUserInfo}></i>
                                     <button type='button' onClick={handleLogout} className='navBtn'>
                                         Logout
                                     </button>

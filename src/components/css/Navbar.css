@@ -114,3 +114,6 @@
 #links>.pending {
     color: rgb(43, 0, 255);
 }
+.active-icon{
+    color: rgb(163, 212, 254) !important
+}
