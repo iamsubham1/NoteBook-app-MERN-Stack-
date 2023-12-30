@@ -71,31 +71,36 @@ const Navbar = () => {
                                 >
                                     About
                                 </NavLink>
+                                <NavLink
+                                    to="/contact"
+                                    onClick={() => slowSetProgress([10, 30, 60, 100])}
+                                    activeclassName="active"
+                                    className="fresh"
+                                >
+                                    Contact
+                                </NavLink>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div className='second-part'>
                             {token ? (
-                                // If authenticated, show logout button
-                                <> <i className={`fa-solid fa-user ${location.pathname === '/userinfo' ? 'active-icon' : ''}`}
-                                    id='userIcon'
-                                    onClick={getUserInfo}></i>
+
+                                <>
+                                    <i className={`fa-solid fa-user ${location.pathname === '/userinfo' ? 'active-icon' : ''}`}
+                                        id='userIcon'
+                                        onClick={getUserInfo}></i>
                                     <button type='button' onClick={handleLogout} className='navBtn'>
                                         Logout
                                     </button>
-
-
                                 </>
                             ) : (
-                                // If not authenticated, show sign up and login buttons
-                                <>
 
-                                    <Link to="/signup">
-                                        <button type='button' onClick={() => slowSetProgress([10, 30, 60, 100])} className='navBtn'>
-                                            Sign Up
-                                        </button>
-                                    </Link>
+                                <><Link to="/signup">
+                                    <button type='button' onClick={() => slowSetProgress([10, 30, 60, 100])} className='navBtn'>
+                                        Sign Up
+                                    </button>
+                                </Link>
                                     <Link to="/login">
                                         <button type='button' onClick={() => slowSetProgress([10, 30, 60, 100])} className='navBtn'>
                                             Login

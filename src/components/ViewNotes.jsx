@@ -50,9 +50,9 @@ const ViewNotes = () => {
 
 
     return (
-        <div className='container'>
+        <div className='container1'>
             <h2>Your Notes</h2>
-            <button onClick={fetchNotes} disabled={loading} className="btn btn-secondary" >
+            <button onClick={fetchNotes} disabled={loading} className="btn btn-secondary" id='showNotes'>
                 {loading ? 'Fetching...' : showNotes ? 'Hide Notes' : 'Show Notes'}
             </button>
 

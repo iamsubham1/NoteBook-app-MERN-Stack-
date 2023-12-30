@@ -41,8 +41,9 @@
 .Navbar>ul>li>.first-part>.links {
     display: flex;
     background-color: rgba(0, 255, 255, 0);
-    width: 50%;
+    width: 65%;
     justify-content: space-evenly;
+    
 
 
 

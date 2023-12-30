@@ -1,13 +1,15 @@
-.container{
-background-color: rgba(123, 123, 123, 0.141);
+.container1{
+background-color: rgba(226, 2, 2, 0);
     width: 45vw;
     height: 65vh;
     border-radius: 25px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 3%;
 }
-.container>h2{
+.container1>h2{
     color: #8BC4FD
 }
 /* Add this style in your CSS file or inline style in your React component */
@@ -29,4 +31,9 @@ background-color: rgba(123, 123, 123, 0.141);
    
     
     border-radius: 5px
+}#showNotes{
+    background-color: #b3b3b3;
+    max-width: 10vw;
+    color: black;
+    font-weight: 600;
 }

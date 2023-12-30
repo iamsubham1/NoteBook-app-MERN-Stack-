@@ -1,16 +1,19 @@
-.page_404 {
 
-    background: #e10a0a00;
-    font-family: 'Arvo', serif;
-}
 
-.container {
+#container1 {
     display: flex;
+    width: 100vw;
+    height: 100vh;
     justify-content: center;
     align-items: center;
     overflow: visible;
+    background-color: #a5fd9300;
 }
+#mainPart{
+    background-color: rgba(255, 0, 0, 0);
+    margin-top:5%;
 
+}
 .page_404 img {
     width: 100%;
 }
