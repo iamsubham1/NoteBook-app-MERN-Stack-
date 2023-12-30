@@ -68,7 +68,11 @@ const ViewNotes = () => {
                                     className="card-body"
                                     id='card-body'
                                     style={{ backgroundColor: getColors() }}
-                                >
+
+                                ><div id='icons'>
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                        <i class="fa-solid fa-trash"></i>
+                                    </div>
                                     <h5 className="card-title">{note.title}</h5>
                                     <p className="card-text">{note.description}</p>
                                 </div>
@@ -82,3 +86,5 @@ const ViewNotes = () => {
 };
 
 export default ViewNotes;
+
+

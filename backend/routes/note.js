@@ -22,6 +22,7 @@ router.options('/addnotes', (req, res) => {
     res.header('Access-Control-Allow-Credentials', 'true');
     res.status(200).end();
 });
+
 //add notes
 router.post('/addnotes', fetchuser, [
     body('title', 'cant be empty').exists(),
@@ -58,6 +59,7 @@ router.post('/addnotes', fetchuser, [
     );
     res.json(savednote);
 });
+
 //update existing notes(login required)
 router.put('/updatenote/:id', fetchuser, [], async (req, res) => {
 

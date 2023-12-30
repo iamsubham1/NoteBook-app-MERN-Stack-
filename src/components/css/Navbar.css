@@ -2,12 +2,12 @@
 
 .Navbar {
     margin-top: 0.8%;
-    background-color: rgba(231, 231, 231, 0.025);
+    background-color: #050b1ed6;
     width: 100vw;
     max-height: 8vh;
     font-size: 1.2em;
     position: fixed;
-
+z-index: 10;
 }
 
 .Navbar>ul {

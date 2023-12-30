@@ -7,6 +7,7 @@ import SignupPage from './components/SignupPage';
 import AboutPage from './components/AboutPage';
 import Notes from './components/Notes';
 import HomePage from './components/HeroPage';
+import ContactPage from './components/ContactPage';
 import UserInfo from './components/UserInfo';
 
 const App = () => {
@@ -21,8 +22,10 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/create" element={<Notes />} />
-        <Route path="*" element={<ErrorPage />} />
         <Route path="/userinfo" element={<UserInfo />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="*" element={<ErrorPage />} />
+
 
       </Routes>
 
