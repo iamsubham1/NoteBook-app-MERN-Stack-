@@ -1,5 +1,11 @@
 #page-container{
     width: 100vw;
     height: 100vh;
-    filter: blur(3px);
+    /* filter: blur(3px); */
+   
+}
+#page-container>img{
+    width: 35%;
+    margin-left: 10%;
+    margin-top: 9%;
 }
