@@ -2,10 +2,18 @@
     width: 100vw;
     height: 100vh;
     /* filter: blur(3px); */
-   
+    display: flex;
+    background-color: antiquewhite;
+    justify-content: center;
+    align-items: baseline;
 }
 #page-container>img{
     width: 35%;
     margin-left: 10%;
     margin-top: 9%;
+}
+#contact-section{
+    background-color: red;
+    width:40vw;
+    height: 40vh;
 }
