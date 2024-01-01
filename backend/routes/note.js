@@ -30,7 +30,7 @@ router.post('/addnotes', fetchuser, [
 ], async (req, res) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Credentials', 'true');
-    console.log('Request Headers:', req.headers);
+
     const { title, description, tag } = req.body;
     try {
         const errors = validationResult(req);

@@ -49,7 +49,7 @@ router.post('/createuser', [
                 name: req.body.name,
                 password: secpass,
                 email: req.body.email,
-                dob: req.body.dob,
+
             })
 
             const data = {
@@ -123,10 +123,10 @@ router.post('/login', [
 //Getting loggedin User details
 router.post("/getuser", fetchuser, async (req, res) => {
     try {
-        userId = req.user.id;
-        // console.log({ userId });
+        const userId = req.user.id;
 
-        // Assuming User is a Mongoose model
+
+
         const user = await User.findById(userId).select("-password");
 
         // Sending the response

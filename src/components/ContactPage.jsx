@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import '../components/css/Contact.css'
+import { Link } from 'react-router-dom';
+
 import Vector from '../assets/Get in touch-cuate.svg'
 
 const ContactPage = () => {
@@ -71,16 +73,13 @@ const ContactPage = () => {
 
                     </div>
                 </form></div>
-                <ul id='link'>
-
-                    <li><i class="fa-brands fa-linkedin"></i></li>
-                    <li><i class="fa-brands fa-github"></i></li>
-                    <li><i class="fa-brands fa-whatsapp"></i></li>
-
-
+                <ul id='social-handles'>
+                    <li><Link to='/linkedin' id='social'><i class="fa-brands fa-linkedin"></i></Link></li>
+                    <li><Link to='/linkedin' id='social'><i class="fa-brands fa-github"></i></Link></li>
+                    <li><Link to='/linkedin' id='social'><i class="fa-brands fa-whatsapp"></i></Link></li>
                 </ul>
             </div>
-        </div>
+        </div >
     )
 }
 

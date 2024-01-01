@@ -4,24 +4,25 @@
     /* filter: blur(3px); */
     display: flex;
     background-color: rgba(250, 235, 215, 0);
-    justify-content: space-evenly;
+    justify-content:center;
     align-items: center;
     font-family: poppins;
 }
 #image-section{
     background-color: rgba(38, 255, 0, 0);
-    width: 50vw;
+    width: 65vw;
     height: 90vh;
 }
 #image-section>img{
-    width: 80%;
+    width: 60%;
     margin-left: 5%;
-    margin-top: 10%;
+    margin-top: 8%;
 }
 #contact-section{
     background-color: rgba(255, 0, 0, 0);
     height: 50vh;
     margin-top: -4%;
+    margin-right: 5%;
     text-align: center;
 }
 #Contact-form{
@@ -29,19 +30,31 @@
     background-color: rgba(0, 0, 255, 0);
     text-align: left;
 }
-#link{
-    background-color: rgba(255, 0, 0, 0);
+#social-handles{
+    background-color: rgba(0, 255, 132, 0);
     display: flex;
     list-style: none;
-    justify-content: space-evenly;
-    color: #8C8A8A;
+    justify-content: space-around;
     margin-top: 5%;
+ 
+    padding: 0%;
+    
     
 }
-#link>li>i{
-    font-size: 2.5em;
+#social-handles>li{
+    list-style: none;
     text-decoration: none;
+    background-color: rgba(255, 0, 0, 0);
 }
-#link>li>i:hover{
-transform: scale(1.1);
+
+
+#social-handles>li>a>i{
+    font-size:2.5vw;
+    color: #8C8A8A;
+    transition: .2s ease-in-out;
 }
+#social-handles>li>a>i:hover{
+    font-size:3vw;
+}
+
+
