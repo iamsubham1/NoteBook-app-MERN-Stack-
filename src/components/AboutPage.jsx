@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import './css/AboutPage.css'
 import mongodb from '../assets/mongodb-ar21.svg'
 import express from '../assets/expressjs-ar21.svg'
 import firebase from '../assets/firebase-icon.svg'
 import { getCookie } from '../utils/getCookie';
 import { useNavigate } from 'react-router-dom'
+import noteContext from '../context/notes/noteContext'
 const AboutPage = () => {
+    const a = useContext(noteContext)
 
     const navigate = useNavigate();
 
@@ -14,7 +16,7 @@ const AboutPage = () => {
         const JWT = getCookie('JWT');
         // console.log(JWT)
         // console.log(document.cookie);
-
+        a.update();
         if (!JWT) {
             // If token is not present, navigate to login
             navigate('/login');
@@ -34,7 +36,7 @@ const AboutPage = () => {
     return (
         <div id='Container'>
             <div className='section-1' id='section1'>
-                <h1>About the product</h1>
+                <h1>About the product {a.state.name} reading in {a.state.class}</h1>
                 <p>QuickMemo is not just a cloud platform,it's your personal space in the digital sky, where organization meets simplicity. Say goodbye to scattered notes and missed memos – with QuickMemo, managing your thoughts and ideas has never been easier.</p>
             </div>
             <div id='divider'></div>

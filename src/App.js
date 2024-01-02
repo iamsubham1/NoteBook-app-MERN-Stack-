@@ -9,27 +9,28 @@ import Notes from './components/Notes';
 import HomePage from './components/HeroPage';
 import ContactPage from './components/ContactPage';
 import UserInfo from './components/UserInfo';
+import NoteState from './context/notes/NoteState';
 
 const App = () => {
 
 
   return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/create" element={<Notes />} />
-        <Route path="/userinfo" element={<UserInfo />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="*" element={<ErrorPage />} />
 
-
-      </Routes>
-
-    </Router>
+    <NoteState>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/create" element={<Notes />} />
+          <Route path="/userinfo" element={<UserInfo />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </Router>
+    </NoteState>
   )
 }
 
