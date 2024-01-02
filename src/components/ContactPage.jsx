@@ -1,35 +1,39 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import '../components/css/Contact.css'
 import { Link } from 'react-router-dom';
 
 import Vector from '../assets/Get in touch-cuate.svg'
 
 const ContactPage = () => {
-    const [formData, setFormData] = useState({
-        email: '',
-        message: '',
+
+    const [contactData, setcontactData] = useState({
+        email:"",
+        message:"",
     });
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
-    };
-    const handleSubmit = (e) => {
+    const handleInput=(e)=>{
+    const{name, value} = e.target
+    setcontactData({
+        ...contactData,
+        [name]: value,
+        
+    });
+}
+const handleSubmit = (e) => {
         e.preventDefault();
         // Add your form submission logic here
-        console.log('Form submitted:', formData);
+        console.log('Form submitted:', contactData);
         // You can send the form data to a server or perform other actions as needed
     };
     return (
         <div id='page-container'>
+
             <div id='image-section'><img src={Vector} alt='vector'></img></div>
 
             <div id='contact-section'>
                 <h1>Contact Me !</h1>
-                <div id='Contact-form'><form className='loginForm' >
+                <div id='Contact-form'>
+                <form className='loginForm' onSubmit={handleSubmit}>
 
                     <div id='Textfield'>
 
@@ -43,8 +47,8 @@ const ContactPage = () => {
                                 className="form-control"
                                 id="email"
                                 aria-describedby="emailHelp"
-                            // value={userData.email}
-                            // onChange={handleInput}
+                                value={contactData.email}
+                                onChange={handleInput}
                             />
                         </div>
                         <div className="mb-3">
@@ -56,8 +60,9 @@ const ContactPage = () => {
                                 name='message'
                                 className="form-control"
                                 id="message"
-                            // value={userData.password}
-                            // onChange={handleInput}
+                                value={contactData.message}
+                                onChange={handleInput}
+
                             />
                         </div>
                     </div>
@@ -66,13 +71,14 @@ const ContactPage = () => {
                             type="submit"
                             className="btn btn-primary"
                             id='submit-btn'
-                        // disabled={!userData.email || !userData.password}
+                        disabled={!contactData.email || !contactData.message}
                         >
                             submit
                         </button>
 
                     </div>
                 </form></div>
+
                 <ul id='social-handles'>
                     <li><Link to='/linkedin' id='social'><i class="fa-brands fa-linkedin"></i></Link></li>
                     <li><Link to='/linkedin' id='social'><i class="fa-brands fa-github"></i></Link></li>

@@ -70,7 +70,7 @@ const ViewNotes = () => {
                                     style={{ backgroundColor: getColors() }}
 
                                 ><div id='icons'>
-                                        <i class="fa-solid fa-pen-to-square"></i>
+                                        <i class="fa-solid fa-pen-to-square" ></i>
                                         <i class="fa-solid fa-trash"></i>
                                     </div>
                                     <h5 className="card-title">{note.title}</h5>
