@@ -11,7 +11,11 @@ const fs = require("fs");
 
 require('dotenv').config({ path: '.env' });
 
-
+cloudinary.config({
+    cloud_name: 'dmb0ooxo5',
+    api_key: '961269617798218',
+    api_secret: 'Xce-92wwLFRdAonPK59BCWcAooU'
+});
 
 // get signature from .env
 const signature = process.env.signature;
@@ -143,7 +147,7 @@ router.post("/getuser", fetchuser, async (req, res) => {
 });
 
 //Upload profile pic
-router.post('/upload', fetchuser, upload.single('photo'), async (req, res) => {
+router.post('/upload', upload.single('photo'), async (req, res) => {
     try {
         const { email } = req.body;
         const inputUrl = req.file.path;
@@ -159,7 +163,7 @@ router.post('/upload', fetchuser, upload.single('photo'), async (req, res) => {
             // Update user's profile picture URL in the userSchema
             await User.findOneAndUpdate(
                 { email },
-                { profilePicture: result.secure_url }
+                { profilePic: result.secure_url }
             );
 
             // Respond with success
