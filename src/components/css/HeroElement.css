@@ -5,7 +5,7 @@
 
 #container{
     background-color: #ff030300;
-    font-size: 16px;
+    
     
 }
 .section{
@@ -28,12 +28,13 @@ background-color: rgba(91, 116, 10, 0);
     font-family: poppins;
     font-weight: 600;
     margin-top: -10vh;
+    font-size: 2.5vmax;
 
 
 }
 #notes-section{
     height: 100vh;
-    background-color: #5ccff500;
+    background-color: #0689b500;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -67,7 +68,7 @@ svg {
     font-family: 'Poppins', sans-serif;
     width: 100%;
     height: 100%;
-    font-size: 4vw;
+    font-size: 4vmax;
     margin-top: 15vh;
 }
 
@@ -144,4 +145,29 @@ svg text {
     100% { transform: translateY(15px); opacity: 0;}
   }
 
-  
+@media screen and (min-width: 1024px) {
+   
+  }/* Tablet media query - screens with a width between 601 and 1023 pixels */
+@media screen and (min-width: 601px) and (max-width: 1023px) {
+    /* CSS rules for tablet screens */
+  }
+/* Phone media query - screens with a maximum width of 600 pixels */
+@media screen and (max-width: 600px) {
+    /* CSS rules for phone screens */
+    #notes-section{
+        flex-direction: column;
+        background-color: red;
+        justify-content: space-evenly;
+    }
+  }
+    
+
+
+  #create-section{
+    background-color: rgba(255, 0, 0, 0);
+    width: 100%;
+    display: flex;
+   align-items: baseline;
+   justify-content: center;
+    
+  }

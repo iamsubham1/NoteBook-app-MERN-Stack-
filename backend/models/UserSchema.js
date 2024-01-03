@@ -20,6 +20,9 @@ const userSchema = new Schema({
     },
     notes: {
         type: Array
+    },
+    profilePic: {
+        type: String,
     }
 });
 

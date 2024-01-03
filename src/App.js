@@ -10,6 +10,7 @@ import HomePage from './components/HeroPage';
 import ContactPage from './components/ContactPage';
 import UserInfo from './components/UserInfo';
 import NoteState from './context/notes/NoteState';
+import ProfilePic from './components/ProfilePic';
 
 const App = () => {
 
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="/create" element={<Notes />} />
           <Route path="/userinfo" element={<UserInfo />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/profilepic" element={<ProfilePic />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Router>

@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import '../components/css/UserInfo.css'
 import { getCookie } from '../utils/getCookie';
 import userImg from '../assets/user.png'
+import { Navigate, useNavigate, Link } from "react-router-dom";
 
 const UserInfo = () => {
     const [userInfo, setUserInfo] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
+    const navigate = useNavigate();
     useEffect(() => {
 
         const fetchUserInfo = async () => {
@@ -50,10 +51,14 @@ const UserInfo = () => {
         return <div>Error: {error}</div>;
     }
 
+    const handleClick = () => {
+
+        navigate('/profilepic');
+    };
     return (<>
         <div id='Wrapper' >
             <img src={userImg} style={{ width: "9%" }} id='userImg' alt=''></img>
-
+            <i class="fa-solid fa-pen" onClick={handleClick}></i>
             <div id='mainSection' >
 
                 <div id='accountSection' >

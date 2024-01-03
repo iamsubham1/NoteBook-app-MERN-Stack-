@@ -4,6 +4,11 @@ const { body, validationResult } = require('express-validator');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const multer = require('multer')
+const upload = multer({ dest: 'temp' });
+const cloudinary = require('cloudinary').v2;
+const fs = require("fs");
+
 require('dotenv').config({ path: '.env' });
 
 
@@ -11,9 +16,7 @@ require('dotenv').config({ path: '.env' });
 // get signature from .env
 const signature = process.env.signature;
 
-
 const fetchuser = require('../middleware/fetchuser')
-
 
 //SignUp route(create an user) express validator gives the validation result //Route1
 router.post('/createuser', [
@@ -136,6 +139,44 @@ router.post("/getuser", fetchuser, async (req, res) => {
         // Handling errors and sending a 500 response in case of an error
         console.error(error.message);
         res.status(500).send("Internal Server Error");
+    }
+});
+
+//Upload profile pic
+router.post('/upload', fetchuser, upload.single('photo'), async (req, res) => {
+    try {
+        const { email } = req.body;
+        const inputUrl = req.file.path;
+
+        // Upload to Cloudinary
+        cloudinary.uploader.upload(inputUrl, { resource_type: 'image' }, async (error, result) => {
+            if (error) {
+                console.error(`Error uploading to Cloudinary: ${error}`);
+                res.status(500).json({ message: 'Error uploading photo' });
+                return;
+            }
+
+            // Update user's profile picture URL in the userSchema
+            await User.findOneAndUpdate(
+                { email },
+                { profilePicture: result.secure_url }
+            );
+
+            // Respond with success
+            res.status(201).json({ message: 'Photo uploaded successfully' });
+
+            // Delete temporary file
+            fs.unlink(inputUrl, (err) => {
+                if (err) {
+                    console.error(`Error deleting file: ${err}`);
+                } else {
+                    console.log('Temporary file deleted successfully');
+                }
+            });
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error uploading photo' });
     }
 });
 

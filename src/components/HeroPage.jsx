@@ -44,7 +44,7 @@ const HomePage = () => {
 
             </section>
             <section className='section' id="notes-section">
-                <div className='create-section' data-aos="zoom-in-right" data-aos-offset="300">
+                <div id='create-section' data-aos="zoom-in-right" data-aos-offset="300">
                     <Notes />
                 </div>
                 <div className='view-section' data-aos="zoom-in-left" data-aos-offset="300">
