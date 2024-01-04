@@ -8,6 +8,8 @@ const multer = require('multer')
 const upload = multer({ dest: 'temp' });
 const cloudinary = require('cloudinary').v2;
 const fs = require("fs");
+const { Readable } = require('stream');
+const sharp = require('sharp');
 
 require('dotenv').config({ path: '.env' });
 
@@ -147,13 +149,30 @@ router.post("/getuser", fetchuser, async (req, res) => {
 });
 
 //Upload profile pic
-router.post('/upload', upload.single('photo'), async (req, res) => {
+router.post('/upload', fetchuser, upload.single('photo'), async (req, res) => {
     try {
-        const { email } = req.body;
+        const userId = req.user.id;
+
+        //getting user details using userId(objId) as reference
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        const email = user.email;
         const inputUrl = req.file.path;
+        // console.log(inputUrl, email);
+
+        // Process the image using sharp
+        const transformedImageBuffer = await sharp(inputUrl)
+            .resize(300, 300)
+            .toFormat('jpeg')
+            .rotate(0)
+            .toBuffer();
 
         // Upload to Cloudinary
-        cloudinary.uploader.upload(inputUrl, { resource_type: 'image' }, async (error, result) => {
+        const uploadStream = cloudinary.uploader.upload_stream({ resource_type: 'image' }, async (error, result) => {
             if (error) {
                 console.error(`Error uploading to Cloudinary: ${error}`);
                 res.status(500).json({ message: 'Error uploading photo' });
@@ -170,14 +189,17 @@ router.post('/upload', upload.single('photo'), async (req, res) => {
             res.status(201).json({ message: 'Photo uploaded successfully' });
 
             // Delete temporary file
-            fs.unlink(inputUrl, (err) => {
-                if (err) {
-                    console.error(`Error deleting file: ${err}`);
-                } else {
-                    console.log('Temporary file deleted successfully');
-                }
-            });
+            try {
+                await fs.promises.unlink(inputUrl);
+                console.log('Temporary file deleted successfully');
+            } catch (err) {
+                console.error(`Error deleting file: ${err}`);
+            }
         });
+        const transformedImageStream = new Readable();
+        transformedImageStream.push(transformedImageBuffer);
+        transformedImageStream.push(null);
+        transformedImageStream.pipe(uploadStream);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error uploading photo' });
