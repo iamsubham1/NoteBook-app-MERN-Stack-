@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../components/css/UserInfo.css';
 import { getCookie } from '../utils/getCookie';
 import { Navigate, useNavigate, Link } from 'react-router-dom';
@@ -6,19 +6,51 @@ import userImg from '../assets/user.png'
 
 const UserInfo = () => {
     const [userInfo, setUserInfo] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(true); // Add loading state
+
+    const fileInputRef = useRef(null);
+
+    const handleUpload = () => {
+        fileInputRef.current.click();
+    }
+
+    const handleFileChange = async (event) => {
+        const file = event.target.files && event.target.files[0];
+        try {
+            const formData = new FormData();
+            formData.append('photo', file);
+            const response = await fetch('http://localhost:4000/api/auth/upload', {
+                method: "POST",
+                headers: {
+                    'JWT': getCookie('JWT'),
+                },
+                credentials: 'include',
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error('Error uploading file');
+            }
+
+            const data = await response.json();
+            console.log('File uploaded successfully:', data);
+            window.location.reload();
+        } catch (error) {
+            // Handle the error
+        }
+    }
 
     useEffect(() => {
         const fetchUserInfo = async () => {
-            const token = getCookie('JWT');
             try {
+                // Simulate a delay of 1 second (1000 milliseconds)
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
                 const response = await fetch('http://localhost:4000/api/auth/getuser', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'JWT': token,
+                        'JWT': getCookie('JWT'),
                     },
                     credentials: 'include',
                 });
@@ -28,24 +60,22 @@ const UserInfo = () => {
                 }
 
                 const data = await response.json();
+                console.log(data);
                 setUserInfo(data.user);
-                setLoading(false);
             } catch (error) {
                 console.error('Error:', error.message);
-                setError('Error fetching user info');
-                setLoading(false);
+            } finally {
+                setIsLoading(false); // Set loading state to false when data is fetched
             }
         };
 
         fetchUserInfo();
     }, []);
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return <div>Error: {error}</div>;
+    if (isLoading) {
+        return (<div className="spinner-border" role="status" id='spinner'>
+            <span class="visually-hidden">Loading...</span>
+        </div>)
     }
 
     // Ensure that userInfo is not null before accessing profilePic
@@ -58,17 +88,28 @@ const UserInfo = () => {
                     src={profilePictureUrl}
                     alt='User Profile'
                     style={{
-                        width: '10%',  // Adjust the width as needed
-                        height: 'auto', // Automatically adjust the height to maintain the aspect ratio
-                        borderRadius: '50%', // Create a circular mask
-                        objectFit: 'cover', // Cover the entire container while maintaining aspect ratio
-                        objectPosition: 'center center', // Center the image within the container
+                        width: '10%',
+                        height: 'auto',
+                        borderRadius: '50%',
+                        objectFit: 'cover',
+                        objectPosition: 'center center',
                     }}
                     id='userImg'
                 />
-                <Link to="/profilepic">
-                    <i className="fa-solid fa-pen"></i>
-                </Link>
+
+                <div id='round'><i className="fa-solid fa-pen" onClick={handleUpload} id='pen'></i></div>
+
+                <form encType="multipart/form-data" method='post'>
+
+
+                    <input
+                        type='file'
+                        id='picInput'
+                        ref={fileInputRef}
+                        style={{ display: 'none' }}
+                        onChange={handleFileChange}
+                    />
+                </form>
                 <div id='mainSection'>
                     <div id='accountSection'>
                         <h1 style={{ textTransform: 'capitalize' }}>{userInfo.name}</h1>

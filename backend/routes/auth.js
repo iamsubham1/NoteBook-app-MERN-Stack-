@@ -5,7 +5,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const multer = require('multer')
-const upload = multer({ dest: 'temp' });
+const upload = multer({ dest: 'uploads' });
 const cloudinary = require('cloudinary').v2;
 const fs = require("fs");
 const { Readable } = require('stream');
@@ -149,60 +149,76 @@ router.post("/getuser", fetchuser, async (req, res) => {
 });
 
 //Upload profile pic
-router.post('/upload', fetchuser, upload.single('photo'), async (req, res) => {
+router.post('/upload', fetchuser, (req, res) => {
     try {
-        const userId = req.user.id;
-
-        //getting user details using userId(objId) as reference
-        const user = await User.findById(userId);
-
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        const email = user.email;
-        const inputUrl = req.file.path;
-        // console.log(inputUrl, email);
-
-        // Process the image using sharp
-        const transformedImageBuffer = await sharp(inputUrl)
-            .resize(300, 300)
-            .toFormat('jpeg')
-            .rotate(0)
-            .toBuffer();
-
-        // Upload to Cloudinary
-        const uploadStream = cloudinary.uploader.upload_stream({ resource_type: 'image' }, async (error, result) => {
-            if (error) {
-                console.error(`Error uploading to Cloudinary: ${error}`);
-                res.status(500).json({ message: 'Error uploading photo' });
-                return;
+        // console.log(req)
+        upload.single('photo')(req, res, async (err) => {
+            if (err) {
+                if (err instanceof multer.MulterError) {
+                    // Handle Multer-specific errors
+                    if (err.code === 'LIMIT_FILE_SIZE') {
+                        return res.status(400).json({ message: 'File size exceeds the limit' });
+                    }
+                    // Handle other Multer errors as needed
+                    return res.status(500).json({ message: 'Multer error: ' + err.message });
+                } else {
+                    // Handle non-Multer errors
+                    return res.status(500).json({ message: 'Internal server error: ' + err.message });
+                }
             }
 
-            // Update user's profile picture URL in the userSchema
-            await User.findOneAndUpdate(
-                { email },
-                { profilePic: result.secure_url }
-            );
+            // Continue with your route logic if file upload is successful
+            const userId = req.user.id;
+            const user = await User.findById(userId);
 
-            // Respond with success
-            res.status(201).json({ message: 'Photo uploaded successfully' });
-
-            // Delete temporary file
-            try {
-                await fs.promises.unlink(inputUrl);
-                console.log('Temporary file deleted successfully');
-            } catch (err) {
-                console.error(`Error deleting file: ${err}`);
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
             }
+
+            const email = user.email;
+            const inputUrl = req.file.path;
+            console.log(inputUrl, email);
+
+            // Process the image using sharp
+            const transformedImageBuffer = await sharp(inputUrl)
+                .resize(300, 300)
+                .toFormat('jpeg')
+                .rotate(0)
+                .toBuffer();
+
+            // Upload to Cloudinary
+            const uploadStream = cloudinary.uploader.upload_stream({ resource_type: 'image' }, async (error, result) => {
+                // Delete temporary file
+                try {
+                    await fs.promises.unlink(inputUrl);
+                    console.log('Temporary file deleted successfully');
+                } catch (err) {
+                    console.error(`Error deleting file: ${err}`);
+                }
+
+                if (error) {
+                    console.error(`Error uploading to Cloudinary: ${error}`);
+                    return res.status(500).json({ message: 'Error uploading photo' });
+                }
+
+                // Update user's profile picture URL in the userSchema
+                await User.findOneAndUpdate(
+                    { email },
+                    { profilePic: result.secure_url }
+                );
+
+                // Respond with success
+                res.status(201).json({ message: 'Photo uploaded successfully' });
+            });
+
+            const transformedImageStream = new Readable();
+            transformedImageStream.push(transformedImageBuffer);
+            transformedImageStream.push(null);
+            transformedImageStream.pipe(uploadStream);
         });
-        const transformedImageStream = new Readable();
-        transformedImageStream.push(transformedImageBuffer);
-        transformedImageStream.push(null);
-        transformedImageStream.pipe(uploadStream);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Error uploading photo' });
+        res.status(500).json({ message: 'Error handling photo upload' });
     }
 });
 
