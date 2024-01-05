@@ -7,6 +7,8 @@ import userImg from '../assets/user.png'
 const UserInfo = () => {
     const [userInfo, setUserInfo] = useState(null);
     const [isLoading, setIsLoading] = useState(true); // Add loading state
+    const [isuploading, setIsuploading] = useState(false);
+    const [profilePicKey, setProfilePicKey] = useState(Date.now()); // Add a key for image element
 
     const fileInputRef = useRef(null);
 
@@ -17,6 +19,7 @@ const UserInfo = () => {
     const handleFileChange = async (event) => {
         const file = event.target.files && event.target.files[0];
         try {
+            setIsuploading(true)
             const formData = new FormData();
             formData.append('photo', file);
             const response = await fetch('http://localhost:4000/api/auth/upload', {
@@ -34,17 +37,23 @@ const UserInfo = () => {
 
             const data = await response.json();
             console.log('File uploaded successfully:', data);
-            window.location.reload();
+            setProfilePicKey(Date.now());
+            // window.location.reload()
+
         } catch (error) {
-            // Handle the error
+            console.error('error:', error.message)
+        }
+        finally {
+            setIsuploading(false)
         }
     }
 
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
-                // Simulate a delay of 1 second (1000 milliseconds)
-                await new Promise(resolve => setTimeout(resolve, 1000));
+                // Simulate a delay
+
+                await new Promise((resolve) => setTimeout(resolve, 200));
 
                 const response = await fetch('http://localhost:4000/api/auth/getuser', {
                     method: 'POST',
@@ -60,7 +69,7 @@ const UserInfo = () => {
                 }
 
                 const data = await response.json();
-                console.log(data);
+                console.log("data:", data);
                 setUserInfo(data.user);
             } catch (error) {
                 console.error('Error:', error.message);
@@ -70,21 +79,22 @@ const UserInfo = () => {
         };
 
         fetchUserInfo();
-    }, []);
+    }, [profilePicKey]);
 
-    if (isLoading) {
+    if (isLoading || isuploading) {
         return (<div className="spinner-border" role="status" id='spinner'>
             <span class="visually-hidden">Loading...</span>
         </div>)
     }
 
-    // Ensure that userInfo is not null before accessing profilePic
+
     const profilePictureUrl = userInfo?.profilePic || userImg;
 
     return (
         <>
             <div id='Wrapper'>
                 <img
+                    key={profilePicKey}
                     src={profilePictureUrl}
                     alt='User Profile'
                     style={{
