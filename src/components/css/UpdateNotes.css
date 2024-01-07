@@ -16,4 +16,10 @@
 }
 #notesForm{
     margin-top: -10%;
+    display: flex;
+    
+}
+#close:hover{
+    color: #8bc4fd !important;
+    transform: scale(1.2);
 }

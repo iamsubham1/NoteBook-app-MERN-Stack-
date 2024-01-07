@@ -58,6 +58,7 @@ const UpdateNote = ({ onClose, noteId }) => {
             <div id='border'>
                 <form className='notesForm' id='notesForm'>
                     <h1>Update Memo</h1>
+                    <i class="fa-solid fa-xmark" id='close' onClick={onClose} style={{ color: 'white', cursor: 'pointer', placeSelf: 'flex-end', position: 'absolute', marginTop: '-24.4%', fontSize: '1.5vw' }}></i>
                     <div className='topWrapper'>
                         <div className="mb-3 title">
                             <label htmlFor="Title" className="form-label" id='colorChange'>Title</label>
@@ -105,7 +106,6 @@ const UpdateNote = ({ onClose, noteId }) => {
                         ></textarea>
                     </div>
                     <button type="button" className="btn btn-primary createBtn" onClick={() => updateNote(noteId)}>Update</button>
-                    <button type="button" className="btn btn-secondary close-btn" onClick={onClose} style={{ width: '30%', marginLeft: '35%', marginTop: '1%' }}>Close</button>
                 </form>
             </div>
         </div>
