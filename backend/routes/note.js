@@ -100,26 +100,34 @@ router.put('/updatenote/:id', verifyUser, [], async (req, res) => {
 });
 
 //delete a note 
-router.delete('/deletenote/:id', verifyUser, [], async (req, res) => {
 
+
+router.delete('/deletenote/:id', verifyUser, async (req, res) => {
     try {
-        //find the note you want to delete and delete it
-        let note = await Note.findById(req.params.id)
+        // Find the note you want to delete and delete it
+        let note = await Note.findById(req.params.id);
         if (!note) {
-            return res.status(404).send('No such note found')
+            return res.status(404).send('No such note found');
         }
 
-        //Allow only if accessed by the actual user
+        // Allow only if accessed by the actual user
         if (note.user.toString() !== req.user.id) {
-            return res.status(401).send('access denied')
+            return res.status(401).send('Access denied');
         }
-        note = await Note.findByIdAndDelete(req.params.id)
-        res.send("note deleted")
-    }
-    catch (error) {
-        res.status(500).send("internal server error")
-    }
 
+        // Delete the note
+        await Note.findByIdAndDelete(req.params.id);
+
+
+        // update the reference to the deleted note from the User's notes array
+        await User.findByIdAndUpdate(req.user.id, { $pull: { notes: req.params.id } });
+
+        res.send('Note deleted');
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Internal server error');
+    }
 });
+
 
 module.exports = router

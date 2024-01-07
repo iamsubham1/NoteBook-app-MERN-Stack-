@@ -56,7 +56,7 @@ const UpdateNote = ({ onClose, noteId }) => {
     return (
         <div id='shell'>
             <div id='border'>
-                <form className='notesForm'>
+                <form className='notesForm' id='notesForm'>
                     <h1>Update Memo</h1>
                     <div className='topWrapper'>
                         <div className="mb-3 title">

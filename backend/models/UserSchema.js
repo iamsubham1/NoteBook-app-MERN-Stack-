@@ -10,23 +10,21 @@ const userSchema = new Schema({
         type: String,
         required: true,
         unique: true
-
     },
     password: {
         type: String,
         required: true,
-
-
     },
-    notes: {
-        type: Array
-    },
+    notes: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Note'
+    }],
     profilePic: {
         type: String,
     }
 });
 
-//creating a model named User using the userschema
+// Creating a model named User using the user schema
 const User = mongoose.model('User', userSchema);
 User.createIndexes();
 module.exports = User;

@@ -5,7 +5,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const verifyUser = require('../middleware/verifyUser')
-
+const Note = require('../models/NoteSchema');
 const multer = require('multer')
 const upload = multer({ dest: 'uploads' });
 const cloudinary = require('cloudinary').v2;
@@ -134,16 +134,17 @@ router.post('/login', [
 router.post("/getuser", verifyUser, async (req, res) => {
     try {
         const userId = req.user.id;
+        let user = await User.findById(userId).select("-password");
 
+        // Explicitly fetch user's notes to get the updated count
+        const notes = await Note.find({ user: userId });
 
-
-        const user = await User.findById(userId).select("-password");
+        // Update the user object with the correct notes count
+        user = { ...user.toObject(), notesCount: notes.length };
 
         // Sending the response
-        res.status(200).json({ "msg": "user valid", user })
-
+        res.status(200).json({ msg: "user valid", user });
     } catch (error) {
-        // Handling errors and sending a 500 response in case of an error
         console.error(error.message);
         res.status(500).send("Internal Server Error");
     }
