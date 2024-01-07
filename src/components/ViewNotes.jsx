@@ -83,14 +83,15 @@ const ViewNotes = () => {
                                 <div
                                     className="card-body"
                                     id='card-body'
-                                    style={{ backgroundColor: getColors(), minWidth: '15vw' }}
+                                    style={{ backgroundColor: getColors(), minWidth: '15vw', fontWeight: 600, }}
                                 >
                                     <div id='icons'>
                                         <i className="fa-solid fa-pen-to-square"></i>
                                         <i className="fa-solid fa-trash" onClick={() => deleteNote(note._id)}></i>
                                     </div>
-                                    <h5 className="card-title">{note.title}</h5>
+                                    <h5 className="card-title">Title:{note.title}</h5>
                                     <p className="card-text">{note.description}</p>
+                                    <p className="card-text" style={{ textTransform: 'uppercase' }}><i class="fa-solid fa-tag"></i>  {note.tag}</p>
                                 </div>
                             </div>
                         </div>

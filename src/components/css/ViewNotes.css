@@ -39,11 +39,14 @@ background-color: rgba(226, 2, 2, 0);
     border:solid 2px rgba(255, 255, 255, 0);
 }
 #card-body{
-   
     
+    min-width: 5vw;
     border-radius: 5px
-}#showNotes{
-    background-color: #b3b3b3;
+}
+
+
+#showNotes{
+    background-color: #06c035;
     max-width: 10vw;
     color: black;
     font-weight: 600;

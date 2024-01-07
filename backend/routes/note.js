@@ -40,24 +40,30 @@ router.post('/addnotes', verifyUser, [
             });
             return res.status(400).json({ error: errorMessages });
         }
+        let findtitle = await Note.findOne({ title: req.body.title, user: req.user.id })
+        if (!findtitle) {
+            console.log("!found")
+
+            const note = new Note({
+                title, description, tag, user: req.user.id
+
+            })
+            const savednote = await note.save()
+
+            const updatedUser = await User.findOneAndUpdate(
+                { _id: req.user.id },
+                { $push: { notes: savednote } },
+                { new: true }
+            );
+            res.json(savednote);
+        }
+        else {
+            res.status(409).send("error:note with same title exists")
+        }
     }
     catch (error) {
         res.status(500).send("internal server error")
     }
-
-
-    const note = new Note({
-        title, description, tag, user: req.user.id
-
-    })
-    const savednote = await note.save()
-
-    const updatedUser = await User.findOneAndUpdate(
-        { _id: req.user.id },
-        { $push: { notes: savednote } },
-        { new: true }
-    );
-    res.json(savednote);
 });
 
 //update existing notes(login required)

@@ -165,7 +165,7 @@ svg text {
 
   #create-section{
     background-color: rgba(255, 0, 0, 0);
-    width: 100%;
+    width: 35%;
     display: flex;
    align-items: baseline;
    justify-content: center;
