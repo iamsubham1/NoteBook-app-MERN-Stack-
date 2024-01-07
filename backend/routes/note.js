@@ -12,6 +12,8 @@ const { body, validationResult } = require('express-validator');
 
 //fetch all notes after login
 router.get('/fetch', verifyUser, async (req, res) => {
+
+
     const notes = await Note.find({ user: req.user.id })
     res.json(notes)
 
@@ -25,7 +27,7 @@ router.options('/addnotes', (req, res) => {
 
 //add notes
 router.post('/addnotes', verifyUser, [
-    body('title', 'cant be empty').exists(),
+    body('title', 'cant be empty').exists().toLowerCase(),
     body('description', 'cant be empty').isLength({ min: 1 }),
 ], async (req, res) => {
     res.header('Access-Control-Allow-Origin', '*');
