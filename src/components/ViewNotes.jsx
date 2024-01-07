@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import '../components/css/ViewNotes.css';
 import { getCookie } from '../utils/getCookie';
+import { getColors } from '../utils/generate colors';
+
 
 const ViewNotes = () => {
     const [notes, setNotes] = useState([]);
@@ -35,17 +37,6 @@ const ViewNotes = () => {
             setLoading(false);
         }
     };
-    //func for getting random colors 
-    const getColors = (() => {
-        const colors = ['#D7F8F2', '#DABBFA', '#92AEF7', '#FFF5E1', '#514983', '756AB6'];
-        let index = 0;
-
-        return () => {
-            const color = colors[index];
-            index = (index + 1) % colors.length;
-            return color;
-        };
-    })();
 
 
 
@@ -70,7 +61,7 @@ const ViewNotes = () => {
                                     <div
                                         className="card-body"
                                         id='card-body'
-                                        style={{ backgroundColor: getColors() }}
+                                        style={{ backgroundColor: getColors(), minWidth: '15vw' }}
                                     >
                                         <div id='icons'>
                                             <i className="fa-solid fa-pen-to-square"></i>
@@ -87,7 +78,7 @@ const ViewNotes = () => {
             )
             }
 
-        </div >
+        </div>
     );
 };
 

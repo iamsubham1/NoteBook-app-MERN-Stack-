@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../components/css/UserInfo.css';
 import { getCookie } from '../utils/getCookie';
-import { Navigate, useNavigate, Link } from 'react-router-dom';
+
 import userImg from '../assets/user.png'
 
 const UserInfo = () => {
