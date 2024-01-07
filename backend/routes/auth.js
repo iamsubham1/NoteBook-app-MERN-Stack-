@@ -4,6 +4,8 @@ const { body, validationResult } = require('express-validator');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const verifyUser = require('../middleware/verifyUser')
+
 const multer = require('multer')
 const upload = multer({ dest: 'uploads' });
 const cloudinary = require('cloudinary').v2;
@@ -12,6 +14,7 @@ const { Readable } = require('stream');
 const sharp = require('sharp');
 
 require('dotenv').config({ path: '.env' });
+const signature = process.env.signature;
 
 cloudinary.config({
     cloud_name: 'dmb0ooxo5',
@@ -20,9 +23,7 @@ cloudinary.config({
 });
 
 // get signature from .env
-const signature = process.env.signature;
 
-const verifyUser = require('../middleware/verifyUser')
 
 //SignUp route(create an user) express validator gives the validation result //Route1
 router.post('/createuser', [
