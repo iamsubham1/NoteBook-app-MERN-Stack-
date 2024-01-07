@@ -11,18 +11,16 @@ const HomePage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Check for the presence of the JWT token in cookies
-        const JWT = getCookie('JWT');
-        console.log(JWT)
-        console.log(document.cookie);
-
-        if (!JWT) {
+        if (!getCookie('JWT')) {
             // If token is not present, navigate to login
             navigate('/login');
         }
         // If token is present, user stays on the home page
     }, [navigate]);
+
+    //animate on scroll
     AOS.init();
+
     return (
         <div id='container'>
             <section id="welcome-section" className='section'>

@@ -7,17 +7,14 @@ import { getCookie } from '../utils/getCookie';
 import { useNavigate } from 'react-router-dom'
 import noteContext from '../context/notes/noteContext'
 const AboutPage = () => {
+
     const a = useContext(noteContext)
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Check for the presence of the JWT token in cookies
-        const JWT = getCookie('JWT');
-        // console.log(JWT)
-        // console.log(document.cookie);
         a.update();
-        if (!JWT) {
+        if (!getCookie('JWT')) {
             // If token is not present, navigate to login
             navigate('/login');
         }

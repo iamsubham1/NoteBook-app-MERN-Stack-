@@ -4,7 +4,7 @@ require('dotenv').config({ path: '.env' });
 
 const signature = process.env.signature;
 
-const fetchuser = (req, res, next) => {
+const verifyUser = (req, res, next) => {
     // Get the userdetails from the jwt token 
     const token = req.header('JWT');
     // console.log('Received token:', token);
@@ -23,7 +23,7 @@ const fetchuser = (req, res, next) => {
 }
 
 
-module.exports = fetchuser;
+module.exports = verifyUser;
 
 
 

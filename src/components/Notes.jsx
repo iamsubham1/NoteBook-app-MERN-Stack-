@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom'
 import '../components/css/Notes.css'
+import { getCookie } from '../utils/getCookie';
 
 const Notes = () => {
     const navigate = useNavigate();
@@ -25,30 +26,15 @@ const Notes = () => {
             tag,
         });
     };
-
-    // Function to get the value of a cookie by its name
-    const getCookie = (name) => {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) {
-            return parts.pop().split(';').shift();
-        }
-        return null; // Return null if the cookie is not found
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // Retrieve the token from the cookie
-        const token = getCookie('JWT');
-        console.log(token);
         try {
             setLoading(true);
             const response = await fetch('/api/notes/addnotes', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'JWT': token
+                    'JWT': getCookie('JWT')
                 },
                 body: JSON.stringify(noteData),
                 credentials: 'include'

@@ -22,7 +22,7 @@ cloudinary.config({
 // get signature from .env
 const signature = process.env.signature;
 
-const fetchuser = require('../middleware/fetchuser')
+const verifyUser = require('../middleware/verifyUser')
 
 //SignUp route(create an user) express validator gives the validation result //Route1
 router.post('/createuser', [
@@ -130,7 +130,7 @@ router.post('/login', [
 });
 
 //Getting loggedin User details
-router.post("/getuser", fetchuser, async (req, res) => {
+router.post("/getuser", verifyUser, async (req, res) => {
     try {
         const userId = req.user.id;
 
@@ -149,7 +149,7 @@ router.post("/getuser", fetchuser, async (req, res) => {
 });
 
 //Upload profile pic
-router.post('/upload', fetchuser, (req, res) => {
+router.post('/upload', verifyUser, (req, res) => {
     try {
         // console.log(req)
         upload.single('photo')(req, res, async (err) => {
