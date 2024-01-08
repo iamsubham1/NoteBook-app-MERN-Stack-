@@ -12,17 +12,29 @@ const cloudinary = require('cloudinary').v2;
 const fs = require("fs");
 const { Readable } = require('stream');
 const sharp = require('sharp');
+const twilio = require('twilio');
 
 require('dotenv').config({ path: '.env' });
 const signature = process.env.signature;
+const cloud_name = process.env.cloud_name
+const api_key = process.env.api_key
+const api_secret = process.env.api_secret
+const accountSid = process.env.accountSid;
+const authToken = process.env.authToken;
+const myPhNumber = process.env.MyNumber
+const twilioPhoneNumber = process.env.twilioPhoneNumber
 
+
+//cloudinary config
 cloudinary.config({
-    cloud_name: 'dmb0ooxo5',
-    api_key: '961269617798218',
-    api_secret: 'Xce-92wwLFRdAonPK59BCWcAooU'
+    cloud_name: cloud_name,
+    api_key: api_key,
+    api_secret: api_secret
 });
 
-// get signature from .env
+//twilio client creation
+const client = twilio(accountSid, authToken);
+
 
 
 //SignUp route(create an user) express validator gives the validation result //Route1
@@ -223,6 +235,27 @@ router.post('/upload', verifyUser, (req, res) => {
         res.status(500).json({ message: 'Error handling photo upload' });
     }
 });
+
+//send contact info as SMS
+router.post('/sendsms', async (req, res) => {
+
+    const { email, message } = req.body;
+
+    // Concatenate email and message into a single string
+    const smsBody = `Email: ${email}\nMessage: ${message}`;
+    try {
+        const sendMessage = await client.messages.create({
+            body: smsBody,
+            from: twilioPhoneNumber,
+            to: myPhNumber
+        });
+        console.log(`SMS sent with SID: ${sendMessage.sid}`);
+        res.send(`SMS sent with SID: ${sendMessage.sid}`);
+    } catch (error) {
+        console.error('Error sending SMS:', error.message);
+        res.status(500).send(`Error sending SMS: ${error.message}`);
+    }
+})
 
 
 //Export the router for the routes to work as it uses express router
