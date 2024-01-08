@@ -163,25 +163,22 @@ router.post("/getuser", verifyUser, async (req, res) => {
 });
 
 //Upload profile pic
+
 router.post('/upload', verifyUser, (req, res) => {
     try {
-        // console.log(req)
         upload.single('photo')(req, res, async (err) => {
             if (err) {
+                // Handle multer errors
                 if (err instanceof multer.MulterError) {
-                    // Handle Multer-specific errors
                     if (err.code === 'LIMIT_FILE_SIZE') {
                         return res.status(400).json({ message: 'File size exceeds the limit' });
                     }
-                    // Handle other Multer errors as needed
                     return res.status(500).json({ message: 'Multer error: ' + err.message });
                 } else {
-                    // Handle non-Multer errors
                     return res.status(500).json({ message: 'Internal server error: ' + err.message });
                 }
             }
 
-            // Continue with your route logic if file upload is successful
             const userId = req.user.id;
             const user = await User.findById(userId);
 
@@ -190,11 +187,13 @@ router.post('/upload', verifyUser, (req, res) => {
             }
 
             const email = user.email;
-            const inputUrl = req.file.path;
-            console.log(inputUrl, email);
+            const inputPath = req.file.path;  // Use req.file.path to get the file path
+
+            // Log the value of inputPath to trace its flow
+            console.log('Input Path:', inputPath);
 
             // Process the image using sharp
-            const transformedImageBuffer = await sharp(inputUrl)
+            const transformedImageBuffer = await sharp(inputPath)
                 .resize(300, 300)
                 .toFormat('jpeg')
                 .rotate(0)
@@ -202,13 +201,7 @@ router.post('/upload', verifyUser, (req, res) => {
 
             // Upload to Cloudinary
             const uploadStream = cloudinary.uploader.upload_stream({ resource_type: 'image' }, async (error, result) => {
-                // Delete temporary file
-                try {
-                    await fs.promises.unlink(inputUrl);
-                    console.log('Temporary file deleted successfully');
-                } catch (err) {
-                    console.error(`Error deleting file: ${err}`);
-                }
+
 
                 if (error) {
                     console.error(`Error uploading to Cloudinary: ${error}`);
@@ -223,8 +216,23 @@ router.post('/upload', verifyUser, (req, res) => {
 
                 // Respond with success
                 res.status(201).json({ message: 'Photo uploaded successfully' });
+
+                // Delete temporary file after a successful upload
+                try {
+                    console.log('Deleting temporary file:', inputPath);
+                    await fs.unlink(inputPath, (err) => {
+                        if (err) {
+                            console.error(`Error deleting file: ${err}`);
+                        } else {
+                            console.log('Temporary file deleted successfully');
+                        }
+                    });
+                } catch (err) {
+                    console.error(`Error deleting file: ${err}`);
+                }
             });
 
+            // Pipe the transformedImageBuffer directly to the uploadStream
             const transformedImageStream = new Readable();
             transformedImageStream.push(transformedImageBuffer);
             transformedImageStream.push(null);
@@ -235,6 +243,7 @@ router.post('/upload', verifyUser, (req, res) => {
         res.status(500).json({ message: 'Error handling photo upload' });
     }
 });
+
 
 //send contact info as SMS
 router.post('/sendsms', async (req, res) => {
