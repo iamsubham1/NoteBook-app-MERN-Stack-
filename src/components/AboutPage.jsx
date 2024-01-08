@@ -8,12 +8,12 @@ import { useNavigate } from 'react-router-dom'
 import noteContext from '../context/notes/noteContext'
 const AboutPage = () => {
 
-    const a = useContext(noteContext)
+
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        a.update();
+
         if (!getCookie('JWT')) {
             // If token is not present, navigate to login
             navigate('/login');
@@ -33,7 +33,7 @@ const AboutPage = () => {
     return (
         <div id='Container'>
             <div className='section-1' id='section1'>
-                <h1>About the product {a.state.name} reading in {a.state.class}</h1>
+                <h1>About The Product</h1>
                 <p>QuickMemo is not just a cloud platform,it's your personal space in the digital sky, where organization meets simplicity. Say goodbye to scattered notes and missed memos – with QuickMemo, managing your thoughts and ideas has never been easier.</p>
             </div>
             <div id='divider'></div>

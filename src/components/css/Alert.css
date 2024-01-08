@@ -1,0 +1,32 @@
+/* Add this to your CSS file (e.g., Alert.css) */
+
+.alert-overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000; /* Adjust the z-index to make sure it's on top of everything */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .alert {
+    /* Your existing alert styles */
+    /* Make sure to include styles for positioning, padding, background, etc. */
+  }
+  
+  /* Additional styling for different alert types */
+  .alert-success {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
+  /* Add more styles for other alert types if needed */
+  
