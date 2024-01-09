@@ -1,5 +1,5 @@
 const { createLogger, transports, format } = require('winston');
-const Log = require('../models/ActivityLog');
+const Log = require('../models/LogSchema');
 
 const logger = createLogger({
     format: format.combine(
@@ -9,9 +9,11 @@ const logger = createLogger({
 
 });
 
-const activityLogger = async (req, res, next) => {
+const logs = [];
+
+const activityLogger = (req, res, next) => {
     const { body, params } = req;
-    const userId = req.user ? req.user.id : 'unauthenticated';
+    const userId = req.user.id ? req.user.id : 'unauthenticated';
 
     let actionMessage = '';
 
@@ -23,7 +25,7 @@ const activityLogger = async (req, res, next) => {
             actionMessage = `User updated a note with title: ${body.title}`;
             break;
         case '/deletenote/:id':
-            actionMessage = `User deleted a note with title: ${params.id}`;
+            actionMessage = `User deleted a note with title: ${params.title}`;
             break;
         case '/upload':
             actionMessage = 'uploaded profile pic';
@@ -36,33 +38,30 @@ const activityLogger = async (req, res, next) => {
     }
 
     const logEntry = {
+        userId,
         timestamp: new Date(),
-        user: userId,
         actionMessage,
     };
 
-    // Log the entry with Winston
+    // Log the entry with Winston 
     logger.info(logEntry);
+    const log = new Log(logEntry);
 
-    // Log the entry to the database
-    try {
-        await Log.create(logEntry);
-    } catch (error) {
-        console.error('Error logging to database:', error);
-    }
+    //save to database
+    log.save()
+        .then(savedLog => {
+            console.log('Log saved to database:', savedLog);
+        })
+        .catch(error => {
+            console.error('Error logging to database:', error);
+        });
 
     next();
-}
+};
 
-const getLogs = async (userId) => {
-    try {
-        const userLogs = await Log.find({ user: userId }).exec();
-        return userLogs;
-    } catch (error) {
-        console.error('Error fetching logs from database:', error);
-        throw error;
-    }
-}
+const getLogs = (userId) => {
+    return Log.find({ userId }).exec();
+};
 
 module.exports = {
     activityLogger,
