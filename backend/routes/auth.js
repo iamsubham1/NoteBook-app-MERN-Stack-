@@ -14,6 +14,7 @@ const { Readable } = require('stream');
 const sharp = require('sharp');
 const twilio = require('twilio');
 const { getPublicID } = require('../utils/getPublicID');
+const { activityLogger, getLogs } = require('../middleware/activityLogger')
 
 require('dotenv').config({ path: '.env' });
 //cloudinary
@@ -40,7 +41,7 @@ const client = twilio(accountSid, authToken);
 
 
 //SignUp route(create an user) express validator gives the validation result //Route1
-router.post('/createuser', [
+router.post('/createuser', activityLogger, [
     body('name', 'Enter a valid name').isLength({ min: 2 }),
     body('email', 'Enter a valid email').isEmail(),
     body('password', 'The password must include a digit and should be of atleast 8 digits').isLength({ min: 8 }).matches(/\d/)
@@ -165,7 +166,7 @@ router.post("/getuser", verifyUser, async (req, res) => {
 });
 
 //Upload profile pic
-router.post('/upload', verifyUser, async (req, res) => {
+router.post('/upload', verifyUser, activityLogger, async (req, res) => {
     try {
         upload.single('photo')(req, res, async (err) => {
             if (err) {
@@ -279,6 +280,18 @@ router.post('/sendsms', async (req, res) => {
         res.status(500).send(`Error sending SMS: ${error.message}`);
     }
 })
+
+//activity log
+router.get('/fetchlogs', verifyUser, async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const logs = await getLogs(userId);
+        res.send(logs);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
+});
 
 
 //Export the router for the routes to work as it uses express router

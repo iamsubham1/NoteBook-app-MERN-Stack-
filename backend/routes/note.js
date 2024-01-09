@@ -7,26 +7,18 @@ const Note = require('../models/NoteSchema');
 const User = require('../models/UserSchema');
 //import express validator
 const { body, validationResult } = require('express-validator');
+const { activityLogger } = require('../middleware/activityLogger')
 
 
-
-//fetch all notes after login
+//fetch all notes 
 router.get('/fetch', verifyUser, async (req, res) => {
-
-
     const notes = await Note.find({ user: req.user.id })
     res.json(notes)
 
 })
 
-router.options('/addnotes', (req, res) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-    res.header('Access-Control-Allow-Credentials', 'true');
-    res.status(200).end();
-});
-
-//add notes
-router.post('/addnotes', verifyUser, [
+//create note
+router.post('/addnotes', verifyUser, activityLogger, [
     body('title', 'cant be empty').exists().toLowerCase(),
     body('description', 'cant be empty').isLength({ min: 1 }),
 ], async (req, res) => {
@@ -68,8 +60,8 @@ router.post('/addnotes', verifyUser, [
     }
 });
 
-//update existing notes(login required)
-router.put('/updatenote/:id', verifyUser, [], async (req, res) => {
+//update existing notes
+router.put('/updatenote/:id', verifyUser, activityLogger, async (req, res) => {
 
     try {
         const { title, description, tag } = req.body
@@ -100,9 +92,7 @@ router.put('/updatenote/:id', verifyUser, [], async (req, res) => {
 });
 
 //delete a note 
-
-
-router.delete('/deletenote/:id', verifyUser, async (req, res) => {
+router.delete('/deletenote/:id', verifyUser, activityLogger, async (req, res) => {
     try {
         // Find the note you want to delete and delete it
         let note = await Note.findById(req.params.id);
@@ -126,6 +116,37 @@ router.delete('/deletenote/:id', verifyUser, async (req, res) => {
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Internal server error');
+    }
+});
+
+//filter by tag
+router.get('/filter', verifyUser, async (req, res) => {
+    try {
+        const notes = await Note.find({ user: req.user.id });
+        const filterBy = req.body.tag;
+        const filteredNotes = notes.filter(note => note.tag.toLowerCase() === filterBy.toLowerCase());
+        res.status(200).json({ success: true, notes: filteredNotes });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
+});
+
+//search by title
+router.get('/search', verifyUser, async (req, res) => {
+    try {
+        const title = req.body.title;
+        const notes = await Note.find({ user: req.user.id });
+        const searchedNote = notes.filter((note) => note.title.toLowerCase().includes(title.toLowerCase()));
+
+        if (searchedNote) {
+            res.status(200).json({ success: true, notes: searchedNote });
+        } else {
+            res.status(404).json({ success: false, message: 'Note not found' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Internal Server Error' });
     }
 });
 
