@@ -13,12 +13,15 @@ const fs = require("fs");
 const { Readable } = require('stream');
 const sharp = require('sharp');
 const twilio = require('twilio');
+const { getPublicID } = require('../utils/getPublicID');
 
 require('dotenv').config({ path: '.env' });
+//cloudinary
 const signature = process.env.signature;
 const cloud_name = process.env.cloud_name
 const api_key = process.env.api_key
 const api_secret = process.env.api_secret
+//twilio
 const accountSid = process.env.accountSid;
 const authToken = process.env.authToken;
 const myPhNumber = process.env.MyNumber
@@ -32,9 +35,8 @@ cloudinary.config({
     api_secret: api_secret
 });
 
-//twilio client creation
+//twilio config
 const client = twilio(accountSid, authToken);
-
 
 
 //SignUp route(create an user) express validator gives the validation result //Route1
@@ -163,8 +165,7 @@ router.post("/getuser", verifyUser, async (req, res) => {
 });
 
 //Upload profile pic
-
-router.post('/upload', verifyUser, (req, res) => {
+router.post('/upload', verifyUser, async (req, res) => {
     try {
         upload.single('photo')(req, res, async (err) => {
             if (err) {
@@ -189,8 +190,23 @@ router.post('/upload', verifyUser, (req, res) => {
             const email = user.email;
             const inputPath = req.file.path;  // Use req.file.path to get the file path
 
-            // Log the value of inputPath to trace its flow
-            console.log('Input Path:', inputPath);
+            // Delete existing profile pic before uploading new one to save memory
+            if (user.profilePic) {
+                const cloudinaryUrl = user.profilePic;
+
+                const publicId = await getPublicID(cloudinaryUrl);
+
+                console.log('Extracted Public ID:', publicId);
+                if (publicId) {
+                    try {
+                        const deletionResult = await cloudinary.uploader.destroy(publicId);
+                        console.log('Existing photo deleted from Cloudinary successfully:', deletionResult);
+                    } catch (deleteError) {
+                        console.error(`Error deleting existing photo from Cloudinary: ${deleteError}`);
+                        // Handle the error as needed
+                    }
+                }
+            }
 
             // Process the image using sharp
             const transformedImageBuffer = await sharp(inputPath)
@@ -200,11 +216,9 @@ router.post('/upload', verifyUser, (req, res) => {
                 .toBuffer();
 
             // Upload to Cloudinary
-            const uploadStream = cloudinary.uploader.upload_stream({ resource_type: 'image' }, async (error, result) => {
-
-
-                if (error) {
-                    console.error(`Error uploading to Cloudinary: ${error}`);
+            const uploadStream = cloudinary.uploader.upload_stream({ resource_type: 'image' }, async (uploadError, result) => {
+                if (uploadError) {
+                    console.error(`Error uploading to Cloudinary: ${uploadError}`);
                     return res.status(500).json({ message: 'Error uploading photo' });
                 }
 
@@ -220,15 +234,15 @@ router.post('/upload', verifyUser, (req, res) => {
                 // Delete temporary file after a successful upload
                 try {
                     console.log('Deleting temporary file:', inputPath);
-                    await fs.unlink(inputPath, (err) => {
-                        if (err) {
-                            console.error(`Error deleting file: ${err}`);
+                    fs.unlink(inputPath, (unlinkError) => {
+                        if (unlinkError) {
+                            console.error(`Error deleting file: ${unlinkError}`);
                         } else {
                             console.log('Temporary file deleted successfully');
                         }
                     });
-                } catch (err) {
-                    console.error(`Error deleting file: ${err}`);
+                } catch (unlinkError) {
+                    console.error(`Error deleting file: ${unlinkError}`);
                 }
             });
 
