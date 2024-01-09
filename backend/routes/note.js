@@ -36,7 +36,7 @@ router.post('/addnotes', verifyUser, activityLogger, [
         }
         let findtitle = await Note.findOne({ title: req.body.title, user: req.user.id })
         if (!findtitle) {
-            console.log("!found")
+            // console.log("!found")
 
             const note = new Note({
                 title, description, tag, user: req.user.id

@@ -12,7 +12,7 @@ const verifyUser = (req, res, next) => {
         const data = jwt.verify(token, signature);
         // console.log('Token decoded successfully:', data);
         req.user = data.user;
-        console.log(req.user)
+        // console.log(req.user)
         next();
     } catch (error) {
         console.error('Error verifying token:', error);
