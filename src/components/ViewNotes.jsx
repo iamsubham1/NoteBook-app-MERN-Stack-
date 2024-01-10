@@ -118,19 +118,20 @@ const ViewNotes = () => {
         try {
             e.preventDefault();
 
-            const searchedtitle = title;
+            const searchedTitle = title;
             const response = await fetch('/api/notes/search', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'JWT': getCookie('JWT')
                 },
-                body: JSON.stringify({ searchedtitle }),
+                body: JSON.stringify({ searchedTitle }),
                 credentials: 'include'
-            })
+            });
+
             if (response.ok) {
                 const data = await response.json();
-                // console.log('Response data:', data);
+                console.log('Response data:', data);
                 setNotes(data.notes);
             } else {
                 const errorMessage = await response.text();
@@ -138,12 +139,13 @@ const ViewNotes = () => {
                 setError('Failed to search notes');
             }
         } catch (error) {
-            console.error('Error fetching filtered notes:', error);
-            setError('Error fetching filtered notes');
+            console.error('Error fetching searched note:', error);
+            setError('Error fetching searched notes');
         } finally {
             setLoading(false);
         }
     }
+
 
     return (
         <div className='container1'>
@@ -191,7 +193,7 @@ const ViewNotes = () => {
                                         <i className="fa-solid fa-trash" onClick={() => deleteNote(note._id)}></i>
                                     </div>
                                     <h5 className="card-title">Title:{note.title}</h5>
-                                    <p className="card-text">{note.description}</p>
+                                    <p className="card-text">-{note.description}</p>
                                     <p className="card-text" style={{ textTransform: 'uppercase' }}><i className="fa-solid fa-tag"></i>  {note.tag}</p>
                                 </div>
                             </div>

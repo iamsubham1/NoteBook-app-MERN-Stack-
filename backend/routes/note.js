@@ -135,20 +135,14 @@ router.post('/filter', verifyUser, async (req, res) => {
 //search by title
 router.post('/search', verifyUser, async (req, res) => {
     try {
-        const title = req.body.title;
+        const searchedTitle = req.body.searchedTitle;
         const notes = await Note.find({ user: req.user.id });
-        const searchedNote = notes.filter((note) => note.title.includes(title));
-
-        if (searchedNote) {
-            res.status(200).json({ success: true, notes: searchedNote });
-        } else {
-            res.status(404).json({ success: false, message: 'Note not found' });
-        }
+        const matchingNotes = notes.filter(note => note.title.includes(searchedTitle));
+        res.status(200).json({ success: true, notes: matchingNotes });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ success: false, message: 'Internal Server Error' });
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
     }
 });
-
 
 module.exports = router
