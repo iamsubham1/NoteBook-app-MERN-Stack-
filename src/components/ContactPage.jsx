@@ -51,7 +51,7 @@ const ContactPage = () => {
     };
     if (sending) {
         return (<div className="spinner-border" role="status" id='spinner'>
-            <span class="visually-hidden">Loading...</span>
+            <span className="visually-hidden">Loading...</span>
         </div>
         )
     }
@@ -111,9 +111,9 @@ const ContactPage = () => {
                     </form></div>
 
                 <ul id='social-handles'>
-                    <li><Link to='https://www.linkedin.com/in/subham-das-35b851242/' id='social'><i class="fa-brands fa-linkedin"></i></Link></li>
-                    <li><Link to='https://github.com/iamsubham1' id='social'><i class="fa-brands fa-github"></i></Link></li>
-                    <li><Link to='/linkedin' id='social'><i class="fa-brands fa-whatsapp"></i></Link></li>
+                    <li><Link to='https://www.linkedin.com/in/subham-das-35b851242/' id='social'><i className="fa-brands fa-linkedin"></i></Link></li>
+                    <li><Link to='https://github.com/iamsubham1' id='social'><i className="fa-brands fa-github"></i></Link></li>
+                    <li><Link to='/linkedin' id='social'><i className="fa-brands fa-whatsapp"></i></Link></li>
                 </ul>
             </div>
         </div >

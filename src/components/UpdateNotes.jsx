@@ -29,7 +29,7 @@ const UpdateNote = ({ onClose, noteId }) => {
     const updateNote = async (noteid) => {
 
         try {
-            const response = await fetch(`http://localhost:4000/api/notes/updatenote/${noteid}`, {
+            const response = await fetch(`/api/notes/updatenote/${noteid}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ const UpdateNote = ({ onClose, noteId }) => {
             <div id='border'>
                 <form className='notesForm' id='notesForm'>
                     <h1>Update Memo</h1>
-                    <i class="fa-solid fa-xmark" id='close' onClick={onClose} style={{ color: 'white', cursor: 'pointer', placeSelf: 'flex-end', position: 'absolute', marginTop: '-24.4%', fontSize: '1.5vw' }}></i>
+                    <i className="fa-solid fa-xmark" id='close' onClick={onClose} style={{ color: 'white', cursor: 'pointer', placeSelf: 'flex-end', position: 'absolute', marginTop: '-24.4%', fontSize: '1.5vw' }}></i>
                     <div className='topWrapper'>
                         <div className="mb-3 title">
                             <label htmlFor="Title" className="form-label" id='colorChange'>Title</label>

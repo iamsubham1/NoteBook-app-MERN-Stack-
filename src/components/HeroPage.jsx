@@ -33,9 +33,9 @@ const HomePage = () => {
 
                     </svg>
                     <h2>"QuickMemo – your instant note companion!"</h2>
-                    <div class="scroll-downs"  >
-                        <div class="mousey">
-                            <div class="scroller"></div>
+                    <div className="scroll-downs"  >
+                        <div className="mousey">
+                            <div className="scroller"></div>
                         </div>
                     </div>
                 </div>

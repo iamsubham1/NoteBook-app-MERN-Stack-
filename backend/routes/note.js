@@ -120,11 +120,11 @@ router.delete('/deletenote/:id', verifyUser, activityLogger, async (req, res) =>
 });
 
 //filter by tag
-router.get('/filter', verifyUser, async (req, res) => {
+router.post('/filter', verifyUser, async (req, res) => {
     try {
         const notes = await Note.find({ user: req.user.id });
         const filterBy = req.body.tag;
-        const filteredNotes = notes.filter(note => note.tag.toLowerCase() === filterBy.toLowerCase());
+        const filteredNotes = notes.filter(note => note.tag === filterBy);
         res.status(200).json({ success: true, notes: filteredNotes });
     } catch (error) {
         console.error(error);
@@ -133,11 +133,11 @@ router.get('/filter', verifyUser, async (req, res) => {
 });
 
 //search by title
-router.get('/search', verifyUser, async (req, res) => {
+router.post('/search', verifyUser, async (req, res) => {
     try {
         const title = req.body.title;
         const notes = await Note.find({ user: req.user.id });
-        const searchedNote = notes.filter((note) => note.title.toLowerCase().includes(title.toLowerCase()));
+        const searchedNote = notes.filter((note) => note.title.includes(title));
 
         if (searchedNote) {
             res.status(200).json({ success: true, notes: searchedNote });
