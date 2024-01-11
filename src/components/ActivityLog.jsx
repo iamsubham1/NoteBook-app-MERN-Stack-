@@ -52,6 +52,7 @@ const ActivityLog = () => {
         }
     };
 
+    const reversedLogs = [...logs].reverse();
 
 
     return (
@@ -60,7 +61,7 @@ const ActivityLog = () => {
             {loading && <p>Loading...</p>}
             {error && <p>{error}</p>}
             <ul>
-                {logs.map((log) => (
+                {reversedLogs.map((log) => (
                     <li key={log._id} style={{ color: getColorForAction(log.actionMessage) }}>
                         {log.actionMessage} on {log.timestamp}
                     </li>
