@@ -139,6 +139,7 @@ router.post('/search', verifyUser, async (req, res) => {
         const notes = await Note.find({ user: req.user.id });
         const matchingNotes = notes.filter(note => note.title.includes(searchedTitle));
         res.status(200).json({ success: true, notes: matchingNotes });
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ success: false, error: 'Internal Server Error' });

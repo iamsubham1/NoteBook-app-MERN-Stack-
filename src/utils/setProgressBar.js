@@ -1,4 +1,4 @@
-export const slowSetProgress = async (stages, setProgress) => {
+const slowSetProgress = async (stages, setProgress) => {
     for (let i = 0; i < stages.length; i++) {
         await new Promise((resolve) => {
             setTimeout(() => {
@@ -8,3 +8,5 @@ export const slowSetProgress = async (stages, setProgress) => {
         });
     }
 };
+
+export default slowSetProgress

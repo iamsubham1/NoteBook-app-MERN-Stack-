@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, } from 'react';
 import '../components/css/ViewNotes.css';
 import { getCookie } from '../utils/getCookie';
 import { getColors } from '../utils/generate colors';
@@ -13,16 +13,12 @@ const ViewNotes = () => {
     const [title, settitle] = useState('')
     const [selectedTag, setSelectedTag] = useState('');
 
-    const searchButtonRef = useRef();
 
+    const handleInputChange = (e) => {
+        const inputValue = e.target.value;
+        settitle(inputValue);
 
-    const handleIconClick = () => {
-        searchButtonRef.current.click();
     };
-
-    useEffect(() => {
-        fetchNotes();
-    }, []);
 
     const fetchNotes = async () => {
         try {
@@ -71,13 +67,7 @@ const ViewNotes = () => {
         }
     };
 
-    const showForm = (noteId) => {
-        setSelectedNoteId(noteId);
-        showUpdateForm(true);
-    };
-
-
-    const handleTagSelectionAndFilter = async (tag) => {
+    const filterNotes = async (tag) => {
         try {
             setSelectedTag(tag);
 
@@ -109,16 +99,11 @@ const ViewNotes = () => {
         }
     };
 
-    const handleInputChange = (e) => {
-        settitle(e.target.value)
-
-    }
-
-    const searchNote = async (e) => {
+    const searchNote = async () => {
         try {
-            e.preventDefault();
+            setLoading(true);
 
-            const searchedTitle = title;
+            const searchedTitle = title
             const response = await fetch('/api/notes/search', {
                 method: 'POST',
                 headers: {
@@ -144,18 +129,24 @@ const ViewNotes = () => {
         } finally {
             setLoading(false);
         }
-    }
+    };
 
+    const showForm = (noteId) => {
+        setSelectedNoteId(noteId);
+        showUpdateForm(true);
+    };
 
+    //re render component on title change
+    useEffect(() => {
+        searchNote();
+    }, [title]);
     return (
         <div className='container1'>
             <h2>Your Notes</h2>
             <div id='searchBar'>
-                <form onSubmit={searchNote}>
+                <form >
                     <input type="text" className="search --bs-danger " id='searchInput' name="search" placeholder="Search"
                         onChange={handleInputChange} value={title} />
-                    <button type="submit" className="search-button" id='searchBtn' ref={searchButtonRef}></button>
-                    <i className="fa-solid fa-magnifying-glass" onClick={handleIconClick}></i>
                 </form>
 
                 <div className="dropdown" >
@@ -163,9 +154,9 @@ const ViewNotes = () => {
                         <i className="fa-solid fa-filter" style={{ color: '#8BC4FD' }}></i>
                     </button>
                     <ul className="dropdown-menu">
-                        <li><a className="dropdown-item" onClick={() => handleTagSelectionAndFilter('Work')}>Work</a></li>
-                        <li><a className="dropdown-item" onClick={() => handleTagSelectionAndFilter('Personal')}>Personal</a></li>
-                        <li><a className="dropdown-item" onClick={() => handleTagSelectionAndFilter('Other')}>Other</a></li>
+                        <li><a className="dropdown-item" onClick={() => filterNotes('Work')}>Work</a></li>
+                        <li><a className="dropdown-item" onClick={() => filterNotes('Personal')}>Personal</a></li>
+                        <li><a className="dropdown-item" onClick={() => filterNotes('Other')}>Other</a></li>
                     </ul>
                 </div>
             </div>
@@ -181,12 +172,22 @@ const ViewNotes = () => {
                     <p style={{ color: 'white' }}>No Notes to show </p>
                 ) : (
                     notes.map((note) => (
-                        <div key={note._id} className="col-md-6">
+                        <div key={note._id} className="col-md-6" id='noteWrapper' style={{
+
+                            minWidth: '15vw',
+
+                            flex: '1',
+                            fontWeight: 600,
+                        }}>
                             <div className="card mb-4 shadow-sm" id='idk'>
                                 <div
                                     className="card-body"
                                     id='card-body'
-                                    style={{ backgroundColor: getColors(), minWidth: '15vw', fontWeight: 600, }}
+                                    style={{
+                                        backgroundColor: getColors(),
+
+                                        fontWeight: 600,
+                                    }}
                                 >
                                     <div id='icons'>
                                         <i className="fa-solid fa-pen-to-square" onClick={() => showForm(note._id)}></i>
@@ -203,7 +204,7 @@ const ViewNotes = () => {
             </div>
 
             {updateForm && <UpdateNote onClose={() => showUpdateForm(false)} noteId={selectedNoteId} />}
-        </div>
+        </div >
     );
 };
 
