@@ -3,6 +3,7 @@ import '../components/css/UserInfo.css';
 import { getCookie } from '../utils/getCookie';
 
 import userImg from '../assets/user.png'
+import ActivityLog from './ActivityLog';
 
 const UserInfo = () => {
     const [userInfo, setUserInfo] = useState(null);
@@ -131,6 +132,7 @@ const UserInfo = () => {
                     </div>
                 </div>
             </div>
+            <ActivityLog />
         </>
     );
 };

@@ -19,13 +19,13 @@ const activityLogger = (req, res, next) => {
 
     switch (req.route.path) {
         case '/addnotes':
-            actionMessage = `User added a new note with title: ${body.title}`;
+            actionMessage = `added a new note with title: ${body.title}`;
             break;
         case '/updatenote/:id':
-            actionMessage = `User updated a note with title: ${body.title}`;
+            actionMessage = `updated a note with title: ${body.title}`;
             break;
         case '/deletenote/:id':
-            actionMessage = `User deleted a note with title: ${params.title}`;
+            actionMessage = `deleted a note with title: ${params.title}`;
             break;
         case '/upload':
             actionMessage = 'uploaded profile pic';

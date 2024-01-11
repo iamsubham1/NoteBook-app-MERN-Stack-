@@ -14,7 +14,6 @@ background-color: rgba(226, 2, 2, 0);
     align-self: start;
     
 }
-/* Add this style in your CSS file or inline style in your React component */
 #row {
     overflow-y: scroll;
     align-self: center;
@@ -76,19 +75,20 @@ background-color: rgba(226, 2, 2, 0);
     justify-content: space-evenly;
     align-items: center;
     width: 40%;
+    margin-left: .5%;
     
 }
-
-
-
 #searchInput{
     background: #39393900;
+    color: #8BC4FD;
+
 }
 
 #searchInput:focus
 {
  color: #ffffff;
  outline-color: #8BC4FD;
+ transform: scale(1);
 }
 
 form>i {
