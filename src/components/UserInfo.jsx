@@ -56,7 +56,7 @@ const UserInfo = () => {
 
                 await new Promise((resolve) => setTimeout(resolve, 200));
 
-                const response = await fetch('http://localhost:4000/api/auth/getuser', {
+                const response = await fetch('/api/auth/getuser', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

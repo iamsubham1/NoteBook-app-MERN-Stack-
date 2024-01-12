@@ -49,12 +49,7 @@ const activityLogger = (req, res, next) => {
 
     //save to database
     log.save()
-        .then(savedLog => {
-            console.log('Log saved to database:', savedLog);
-        })
-        .catch(error => {
-            console.error('Error logging to database:', error);
-        });
+
 
     next();
 };

@@ -23,7 +23,7 @@ const SignupForm = () => {
         // Add logic to handle the submission of the form (e.g., save the note)
         console.log('Account created');
         try {
-            const response = await fetch(`http://localhost:4000/api/auth/createuser`, {
+            const response = await fetch(`/api/auth/createuser`, {
                 method: 'POST',
 
                 headers: {

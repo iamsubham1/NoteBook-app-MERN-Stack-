@@ -37,9 +37,9 @@ const ActivityLog = () => {
                 setLogs(data);
                 data.forEach(log => {
                     const actionMessage = log.actionMessage;
-                    console.log('Action Message:', actionMessage);
+                    // console.log('Action Message:', actionMessage);
                     const color = getColorForAction(actionMessage);
-                    console.log('Color:', color);
+                    // console.log('Color:', color);
                 });
 
             } else {

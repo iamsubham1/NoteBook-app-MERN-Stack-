@@ -287,10 +287,10 @@ router.get('/fetchlogs', verifyUser, async (req, res) => {
         const userId = req.user.id;
         const user = await User.findById(userId);
         const name = user.name
-        console.log(name)
+        // console.log(name)
         const logs = await getLogs(userId);
         res.send(logs);
-        console.log(logs)
+        // console.log(logs)
     } catch (error) {
         console.error(error);
         res.status(500).json({ success: false, error: 'Internal Server Error' });
