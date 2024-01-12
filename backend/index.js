@@ -25,6 +25,10 @@ const startServer = async () => {
         app.use('/api/auth', require('./routes/auth'));
         app.use('/api/notes', require('./routes/note'));
 
+        app.use('/', (req, res) => {
+            res.send("Welcome To My App")
+        })
+
         // Listening
         app.listen(port, () => {
             console.log(`NoteBook-app is running on ${port}`);
