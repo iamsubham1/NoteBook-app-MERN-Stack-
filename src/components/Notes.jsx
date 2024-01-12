@@ -67,7 +67,7 @@ const Notes = () => {
     return (
 
         <form className='notesForm' onSubmit={handleSubmit}>
-            <h1>Create Memo</h1>
+            <h1>Create Note</h1>
             <div className='topWrapper'>
                 <div className="mb-3 title">
                     <label htmlFor="Title" className="form-label" id='colorChange'>Title</label>
@@ -124,27 +124,3 @@ const Notes = () => {
 };
 
 export default Notes;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

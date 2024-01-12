@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getCookie } from '../utils/getCookie';
+
+
 const ActivityLog = () => {
     const [logs, setLogs] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -8,7 +10,7 @@ const ActivityLog = () => {
     const getColorForAction = (actionMessage) => {
         console.log(actionMessage)
         if (actionMessage && actionMessage.toLowerCase().includes('uploaded')) {
-            return 'blue';
+            return 'cyan';
         } else if (actionMessage && actionMessage.toLowerCase().includes('added')) {
             return 'green';
         } else if (actionMessage && actionMessage.toLowerCase().includes('delete')) {
@@ -54,7 +56,10 @@ const ActivityLog = () => {
 
     const reversedLogs = [...logs].reverse();
 
+    useEffect(() => {
+        fetchLogs()
 
+    }, []);
     return (
         <div>
             <h2>Logs</h2>
@@ -62,16 +67,13 @@ const ActivityLog = () => {
             {error && <p>{error}</p>}
             <ul>
                 {reversedLogs.map((log) => (
-                    <li key={log._id} style={{ color: getColorForAction(log.actionMessage) }}>
+                    <li key={log._id} style={{ color: getColorForAction(log.actionMessage), fontFamily: 'poppins' }}>
                         {log.actionMessage} on {log.timestamp}
                     </li>
                 ))}
             </ul>
-            <button onClick={fetchLogs}>click</button>
         </div>
     );
 };
-
-
 
 export default ActivityLog

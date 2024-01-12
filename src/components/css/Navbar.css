@@ -101,7 +101,7 @@ z-index: 10;
     
 }
 #userIcon:hover{
-    color: #2256DE;
+    color: #9AD0FF;
     transform: scale(1.1);
     cursor: pointer;
 }

@@ -11,8 +11,7 @@ const ViewNotes = () => {
     const [updateForm, showUpdateForm] = useState(false);
     const [selectedNoteId, setSelectedNoteId] = useState(null); // Add this line
     const [title, settitle] = useState('')
-    const [selectedTag, setSelectedTag] = useState('');
-
+    const [isfilterd, setisfiltered] = useState(false);
 
     const handleInputChange = (e) => {
         const inputValue = e.target.value;
@@ -69,9 +68,8 @@ const ViewNotes = () => {
 
     const filterNotes = async (tag) => {
         try {
-            setSelectedTag(tag);
-
             setLoading(true);
+            setisfiltered(true);
 
             const response = await fetch('/api/notes/filter', {
                 method: 'POST',
@@ -97,6 +95,13 @@ const ViewNotes = () => {
         } finally {
             setLoading(false);
         }
+    };
+    const clearFilter = () => {
+
+        fetchNotes();
+        setisfiltered(false);
+
+
     };
 
     const searchNote = async () => {
@@ -157,8 +162,15 @@ const ViewNotes = () => {
                         <li><a className="dropdown-item" onClick={() => filterNotes('Work')}>Work</a></li>
                         <li><a className="dropdown-item" onClick={() => filterNotes('Personal')}>Personal</a></li>
                         <li><a className="dropdown-item" onClick={() => filterNotes('Other')}>Other</a></li>
+
                     </ul>
+
+                    <div id='clearFilterBtn'>
+                        {isfilterd && <button className="btn btn-link" onClick={clearFilter} style={{ textDecoration: 'none', color: '#7AADDF' }}>Clear Filter</button>}
+                    </div>
+
                 </div>
+
             </div>
 
 
@@ -175,7 +187,6 @@ const ViewNotes = () => {
                         <div key={note._id} className="col-md-6" id='noteWrapper' style={{
 
                             minWidth: '15vw',
-
                             flex: '1',
                             fontWeight: 600,
                         }}>
