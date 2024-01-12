@@ -1,15 +1,11 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect } from 'react'
 import './css/AboutPage.css'
 import mongodb from '../assets/mongodb-ar21.svg'
 import express from '../assets/expressjs-ar21.svg'
 import firebase from '../assets/firebase-icon.svg'
 import { getCookie } from '../utils/getCookie';
 import { useNavigate } from 'react-router-dom'
-import noteContext from '../context/notes/noteContext'
 const AboutPage = () => {
-
-
-
     const navigate = useNavigate();
 
     useEffect(() => {

@@ -23,7 +23,7 @@ const UserInfo = () => {
             setIsuploading(true)
             const formData = new FormData();
             formData.append('photo', file);
-            const response = await fetch('http://localhost:4000/api/auth/upload', {
+            const response = await fetch('/api/auth/upload', {
                 method: "POST",
                 headers: {
                     'JWT': getCookie('JWT'),

@@ -167,6 +167,7 @@ router.post("/getuser", verifyUser, async (req, res) => {
 
 //Upload profile pic
 router.post('/upload', verifyUser, activityLogger, async (req, res) => {
+    console.log('upload start')
     try {
         upload.single('photo')(req, res, async (err) => {
             if (err) {

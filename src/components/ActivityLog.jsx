@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { getCookie } from '../utils/getCookie';
 
 
@@ -39,7 +39,7 @@ const ActivityLog = () => {
                     const actionMessage = log.actionMessage;
                     // console.log('Action Message:', actionMessage);
                     const color = getColorForAction(actionMessage);
-                    // console.log('Color:', color);
+                    console.log('Color:', color);
                 });
 
             } else {
@@ -56,10 +56,7 @@ const ActivityLog = () => {
 
     const reversedLogs = [...logs].reverse();
 
-    useEffect(() => {
-        fetchLogs()
 
-    }, []);
     return (
         <div>
             <h2>Logs</h2>

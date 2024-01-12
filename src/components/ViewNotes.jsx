@@ -1,4 +1,5 @@
-import React, { useState, useEffect, } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import '../components/css/ViewNotes.css';
 import { getCookie } from '../utils/getCookie';
 import { getColors } from '../utils/generate colors';
@@ -104,7 +105,7 @@ const ViewNotes = () => {
 
     };
 
-    const searchNote = async () => {
+    const searchNote = useCallback(async () => {
         try {
             setLoading(true);
 
@@ -134,7 +135,8 @@ const ViewNotes = () => {
         } finally {
             setLoading(false);
         }
-    };
+
+    }, [title]);
 
     const showForm = (noteId) => {
         setSelectedNoteId(noteId);
@@ -144,7 +146,7 @@ const ViewNotes = () => {
     //re render component on title change
     useEffect(() => {
         searchNote();
-    }, [title]);
+    }, [title, searchNote]);
     return (
         <div className='container1'>
             <h2>Your Notes</h2>
@@ -159,9 +161,9 @@ const ViewNotes = () => {
                         <i className="fa-solid fa-filter" style={{ color: '#8BC4FD' }}></i>
                     </button>
                     <ul className="dropdown-menu">
-                        <li><a className="dropdown-item" onClick={() => filterNotes('Work')}>Work</a></li>
-                        <li><a className="dropdown-item" onClick={() => filterNotes('Personal')}>Personal</a></li>
-                        <li><a className="dropdown-item" onClick={() => filterNotes('Other')}>Other</a></li>
+                        <li><Link className="dropdown-item" onClick={() => filterNotes('Work')}>Work</Link></li>
+                        <li><Link className="dropdown-item" onClick={() => filterNotes('Personal')}>Personal</Link></li>
+                        <li><Link className="dropdown-item" onClick={() => filterNotes('Other')}>Other</Link></li>
 
                     </ul>
 
