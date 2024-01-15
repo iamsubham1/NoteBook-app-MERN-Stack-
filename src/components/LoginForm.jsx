@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './css/Login.css';
 import { Link, useNavigate } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
 const LoginForm = () => {
     const navigate = useNavigate();
@@ -20,7 +21,7 @@ const LoginForm = () => {
         e.preventDefault();
         // Reset any previous success message
         try {
-            const response = await fetch('/api/auth/login', {
+            const response = await fetch('https://quickmemo-backend.onrender.com/api/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -32,10 +33,13 @@ const LoginForm = () => {
 
             if (response.ok) {
                 const data = await response.json();
+
+                const cookies = new Cookies();
+                cookies.set('JWT', data.token, { path: '/', httpOnly: false, secure: true, sameSite: 'none' });
                 alert('login successfull');
-                console.log('Login successful:', data);
+                console.log('Login successful:', data.token);
                 navigate('/');
-                // Optionally, you can redirect to another page after successful login
+
                 // window.location.href = '/home';
             }
             else if (response.status === 400) {
