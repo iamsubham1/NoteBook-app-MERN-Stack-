@@ -24,7 +24,7 @@ const ContactPage = () => {
 
         try {
             setsending(true);
-            const response = await fetch('/api/auth/sendsms', {
+            const response = await fetch('https://quickmemo-backend.onrender.com/api/auth/sendsms', {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(contactData),

@@ -6,8 +6,8 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser');
 
 const corsOptions = {
-    origin: 'http://localhost:3000',
-    methods: "GET,POST,PUT,DELETE,HEAD",
+    origin: 'https://myquickmemo.netlify.app/login',
+    methods: "GET,POST,PUT,PATCH,DELETE,HEAD",
     credentials: true
 }
 
@@ -25,8 +25,8 @@ const startServer = async () => {
         app.use('/api/auth', require('./routes/auth'));
         app.use('/api/notes', require('./routes/note'));
 
-        app.use('/', (req, res) => {
-            res.send("Welcome To My App")
+        app.use('/health', (req, res) => {
+            res.send("server health is perfect !")
         })
 
         // Listening

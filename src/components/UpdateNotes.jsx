@@ -29,7 +29,7 @@ const UpdateNote = ({ onClose, noteId }) => {
     const updateNote = async (noteid) => {
 
         try {
-            const response = await fetch(`/api/notes/updatenote/${noteid}`, {
+            const response = await fetch(`https://quickmemo-backend.onrender.com/api/notes/updatenote/${noteid}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

@@ -31,7 +31,7 @@ const Notes = () => {
         e.preventDefault();
         try {
             setLoading(true);
-            const response = await fetch('/api/notes/addnotes', {
+            const response = await fetch('https://quickmemo-backend.onrender.com/api/notes/addnotes', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

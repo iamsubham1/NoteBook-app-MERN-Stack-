@@ -82,11 +82,10 @@ router.post('/createuser', [
             }
 
             //generate authtoken
-            const authToken = jwt.sign(data, signature);
-            res.cookie('authToken', authToken,
-                { httpOnly: true });
+            const token = jwt.sign(data, signature);
 
-            return res.json({ "authtoken": authToken });
+
+            return res.json({ "JWT": testoken });
 
         } catch (error) {
             console.error(error.message)
@@ -131,13 +130,7 @@ router.post('/login', [
 
         // Generate auth token
         const token = jwt.sign(data, signature);
-        res.status(200).cookie('JWT', token, {
-            httpOnly: false,
-            maxAge: 120 * 60 * 10000,
-            secure: true,
-            sameSite: 'None',
-            path: '/'
-        }).json({ success: true, token });
+        res.status(200).json({ success: true, token });
 
     } catch (error) {
         console.error('Error during login:', error);

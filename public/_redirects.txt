@@ -1,0 +1,2 @@
+/api/* https://quickmemo-backend.onrender.com/ 200
+/*    /index.html 200

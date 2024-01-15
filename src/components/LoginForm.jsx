@@ -37,6 +37,8 @@ const LoginForm = () => {
                 const cookies = new Cookies();
                 cookies.set('JWT', data.token, { path: '/', httpOnly: false, secure: true, sameSite: 'none' });
                 alert('login successfull');
+
+
                 console.log('Login successful:', data.token);
                 navigate('/');
 
