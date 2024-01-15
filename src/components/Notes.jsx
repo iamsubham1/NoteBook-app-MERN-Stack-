@@ -48,7 +48,7 @@ const Notes = () => {
             }
             window.location.reload();
             alert('Memo created successfully');
-            navigate('/');
+
             setNoteData({
                 title: '',
                 description: '',
