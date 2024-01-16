@@ -46,9 +46,9 @@ const Notes = () => {
                 throw new Error(`HTTP error! Status: ${response.status}. ${errorMessage}`);
 
             }
-            window.location.reload();
-            alert('Memo created successfully');
 
+            alert('Memo created successfully');
+            window.location.reload();
             setNoteData({
                 title: '',
                 description: '',
