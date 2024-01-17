@@ -22,8 +22,7 @@ router.post('/addnotes', verifyUser, activityLogger, [
     body('title', 'cant be empty').exists().toLowerCase(),
     body('description', 'cant be empty').isLength({ min: 1 }),
 ], async (req, res) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Credentials', 'true');
+
 
     const { title, description, tag } = req.body;
     try {
