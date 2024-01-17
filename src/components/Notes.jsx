@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom'
+import {, Link } from 'react-router-dom'
 import '../components/css/Notes.css'
 import { getCookie } from '../utils/getCookie';
 
 const Notes = () => {
-    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [noteData, setNoteData] = useState({
         title: '',
