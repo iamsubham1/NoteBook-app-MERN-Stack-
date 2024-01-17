@@ -33,10 +33,13 @@ const SignupForm = () => {
             })
             if (response.ok) {
                 navigate('/login');
-                alert('account created');
+                alert('Account Created');
                 // Redirect or perform other actions
             }
-
+            else if (response.status === 400) {
+                alert("Email already in use Login instead");
+                navigate('/login')
+            }
             else {
 
                 alert('form cannot be blank');
