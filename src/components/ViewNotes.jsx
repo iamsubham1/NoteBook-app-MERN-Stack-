@@ -23,7 +23,7 @@ const ViewNotes = () => {
     const fetchNotes = async () => {
         try {
             setLoading(true);
-            const response = await fetch('/api/notes/fetch', {
+            const response = await fetch('https://quickmemo-backend.onrender.com/api/notes/fetch', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ const ViewNotes = () => {
 
     const deleteNote = async (noteid) => {
         try {
-            const response = await fetch(`/api/notes/deletenote/${noteid}`, {
+            const response = await fetch(`https://quickmemo-backend.onrender.com/api/notes/deletenote/${noteid}`, {
                 method: 'delete',
                 headers: {
                     'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ const ViewNotes = () => {
             setLoading(true);
             setisfiltered(true);
 
-            const response = await fetch('/api/notes/filter', {
+            const response = await fetch('https://quickmemo-backend.onrender.com/api/notes/filter', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -104,7 +104,7 @@ const ViewNotes = () => {
             setLoading(true);
 
             const searchedTitle = title
-            const response = await fetch('/api/notes/search', {
+            const response = await fetch('https://quickmemo-backend.onrender.com/api/notes/search', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
