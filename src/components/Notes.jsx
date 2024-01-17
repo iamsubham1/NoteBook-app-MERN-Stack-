@@ -31,7 +31,7 @@ const Notes = () => {
         e.preventDefault();
         try {
             setLoading(true);
-            const response = await fetch('https://quickmemo-backend.onrender.com/api/notes/addnotes', {
+            const response = await fetch('/api/notes/addnotes', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -48,6 +48,7 @@ const Notes = () => {
             }
 
             alert('Memo created successfully');
+
             window.location.reload();
             setNoteData({
                 title: '',
@@ -57,7 +58,12 @@ const Notes = () => {
 
         } catch (error) {
             console.error('Error:', error.message);
+            console.log('Error response:', error.response); // Log the response details
             alert(`Failed to create memo. ${error.message}`);
+            if (error.message !== 'Fetch notes') {
+                // Reload only if the error is not related to fetching notes
+                window.location.reload();
+            }
         } finally {
             setLoading(false);
         }

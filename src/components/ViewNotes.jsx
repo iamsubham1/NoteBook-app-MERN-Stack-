@@ -20,10 +20,10 @@ const ViewNotes = () => {
 
     };
 
-    const fetchNotes = async () => {
+    const fetchNotes = useCallback(async () => {
         try {
             setLoading(true);
-            const response = await fetch('https://quickmemo-backend.onrender.com/api/notes/fetch', {
+            const response = await fetch('/api/notes/fetch', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -43,11 +43,11 @@ const ViewNotes = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [setLoading, setNotes, setError]);
 
     const deleteNote = async (noteid) => {
         try {
-            const response = await fetch(`https://quickmemo-backend.onrender.com/api/notes/deletenote/${noteid}`, {
+            const response = await fetch(`/api/notes/deletenote/${noteid}`, {
                 method: 'delete',
                 headers: {
                     'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ const ViewNotes = () => {
             setLoading(true);
             setisfiltered(true);
 
-            const response = await fetch('https://quickmemo-backend.onrender.com/api/notes/filter', {
+            const response = await fetch('/api/notes/filter', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -104,7 +104,7 @@ const ViewNotes = () => {
             setLoading(true);
 
             const searchedTitle = title
-            const response = await fetch('https://quickmemo-backend.onrender.com/api/notes/search', {
+            const response = await fetch('/api/notes/search', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -143,7 +143,7 @@ const ViewNotes = () => {
     //re render component on title change
     useEffect(() => {
         searchNote();
-    }, [title, searchNote]);
+    }, [title, searchNote, fetchNotes]);
     return (
         <div className='container1'>
             <h2>Your Notes</h2>
