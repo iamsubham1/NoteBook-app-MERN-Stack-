@@ -40,9 +40,9 @@ const SignupForm = () => {
                 alert("Email already in use Login instead");
                 navigate('/login')
             }
-            else {
+            else if (response.status === 401) {
 
-                alert(error);
+                alert("input the field correctly");
 
             }
 
