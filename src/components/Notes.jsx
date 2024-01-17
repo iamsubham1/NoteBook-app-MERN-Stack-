@@ -49,7 +49,7 @@ const Notes = () => {
 
             alert('Memo created successfully');
 
-            window.location.reload();
+            navigate('/')
             setNoteData({
                 title: '',
                 description: '',
