@@ -6,7 +6,7 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser');
 
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: 'https://myquickmemo.netlify.app',
     methods: "GET,POST,PUT,PATCH,DELETE,HEAD",
     credentials: true
 }
