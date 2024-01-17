@@ -7,9 +7,9 @@ import userImg from '../assets/user.png'
 
 const UserInfo = () => {
     const [userInfo, setUserInfo] = useState(null);
-    const [isLoading, setIsLoading] = useState(true); // Add loading state
+    const [isLoading, setIsLoading] = useState(true);
     const [isuploading, setIsuploading] = useState(false);
-    const [profilePicKey, setProfilePicKey] = useState(Date.now()); // Add a key for image element
+    const [profilePicKey, setProfilePicKey] = useState(Date.now());
 
     const fileInputRef = useRef(null);
 
@@ -19,35 +19,45 @@ const UserInfo = () => {
 
     const handleFileChange = async (event) => {
         const file = event.target.files && event.target.files[0];
+
         try {
-            setIsuploading(true)
+            setIsuploading(true);
+            console.log('File selected:', file);
+
             const formData = new FormData();
             formData.append('photo', file);
+
+            console.log('Sending file to server...');
             const response = await fetch('/api/auth/upload', {
-                method: "POST",
+                method: 'POST',
                 headers: {
                     'JWT': getCookie('JWT'),
                 },
                 credentials: 'include',
-                body: formData
+                body: formData,
             });
 
             if (!response.ok) {
                 throw new Error('Error uploading file');
             }
 
+            console.log('File upload successful. Retrieving response data...');
             const data = await response.json();
             console.log('File uploaded successfully:', data);
-            setProfilePicKey(Date.now());
-            // window.location.reload()
 
+            console.log('Updating profile picture key...');
+            setProfilePicKey(Date.now());
+
+
+            // window.location.reload();
         } catch (error) {
-            console.error('error:', error.message)
+            console.error('Error:', error.message);
+        } finally {
+            console.log('File upload process completed.');
+            setIsuploading(false);
         }
-        finally {
-            setIsuploading(false)
-        }
-    }
+    };
+
 
     useEffect(() => {
         const fetchUserInfo = async () => {

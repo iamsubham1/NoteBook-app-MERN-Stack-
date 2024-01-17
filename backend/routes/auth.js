@@ -57,9 +57,7 @@ router.post('/createuser', [
                 });
                 return res.status(400).json({ error: errorMessages });
             }
-            //error for existing email//check for custom validations
             let user = await User.findOne({ email: req.body.email });
-            // console.log(user)
 
             if (user) {
                 console.log("email id exists")
@@ -80,12 +78,7 @@ router.post('/createuser', [
             const data = {
                 userId: user._id,
             }
-
-            //generate authtoken
-            const token = jwt.sign(data, signature);
-
-
-            return res.json({ "JWT": testoken });
+            res.status(200).json({ success: true });
 
         } catch (error) {
             console.error(error.message)
@@ -144,7 +137,6 @@ router.post("/getuser", verifyUser, async (req, res) => {
         const userId = req.user.id;
         let user = await User.findById(userId).select("-password");
 
-        // Explicitly fetch user's notes to get the updated count
         const notes = await Note.find({ user: userId });
 
         // Update the user object with the correct notes count
@@ -160,11 +152,13 @@ router.post("/getuser", verifyUser, async (req, res) => {
 
 //Upload profile pic
 router.post('/upload', verifyUser, activityLogger, async (req, res) => {
-    console.log('upload start')
+    console.log('Upload start');
     try {
         upload.single('photo')(req, res, async (err) => {
+            console.log('Inside upload middleware');
             if (err) {
                 // Handle multer errors
+                console.error('Multer error:', err);
                 if (err instanceof multer.MulterError) {
                     if (err.code === 'LIMIT_FILE_SIZE') {
                         return res.status(400).json({ message: 'File size exceeds the limit' });
@@ -183,15 +177,16 @@ router.post('/upload', verifyUser, activityLogger, async (req, res) => {
             }
 
             const email = user.email;
-            const inputPath = req.file.path;  // Use req.file.path to get the file path
+            const inputPath = req.file.path;
 
-            // Delete existing profile pic before uploading new one to save memory
+            console.log('User found:', user);
+
             if (user.profilePic) {
                 const cloudinaryUrl = user.profilePic;
-
                 const publicId = await getPublicID(cloudinaryUrl);
 
-                console.log('Extracted Public ID:', publicId);
+                console.log('Existing profile pic found. Public ID:', publicId);
+
                 if (publicId) {
                     try {
                         const deletionResult = await cloudinary.uploader.destroy(publicId);
@@ -203,25 +198,31 @@ router.post('/upload', verifyUser, activityLogger, async (req, res) => {
                 }
             }
 
-            // Process the image using sharp
+            console.log('Processing image using sharp');
+
             const transformedImageBuffer = await sharp(inputPath)
                 .resize(300, 300)
                 .toFormat('jpeg')
                 .rotate(0)
                 .toBuffer();
 
-            // Upload to Cloudinary
+            console.log('Image processing complete. Uploading to Cloudinary...');
+
             const uploadStream = cloudinary.uploader.upload_stream({ resource_type: 'image' }, async (uploadError, result) => {
                 if (uploadError) {
                     console.error(`Error uploading to Cloudinary: ${uploadError}`);
                     return res.status(500).json({ message: 'Error uploading photo' });
                 }
 
+                console.log('Upload to Cloudinary successful. Updating user profile picture URL...');
+
                 // Update user's profile picture URL in the userSchema
                 await User.findOneAndUpdate(
                     { email },
                     { profilePic: result.secure_url }
                 );
+
+                console.log('User profile picture URL updated. Responding with success.');
 
                 // Respond with success
                 res.status(201).json({ message: 'Photo uploaded successfully' });
@@ -248,7 +249,7 @@ router.post('/upload', verifyUser, activityLogger, async (req, res) => {
             transformedImageStream.pipe(uploadStream);
         });
     } catch (error) {
-        console.error(error);
+        console.error('Error:', error);
         res.status(500).json({ message: 'Error handling photo upload' });
     }
 });
