@@ -42,8 +42,8 @@ const client = twilio(accountSid, authToken);
 
 //SignUp route(create an user) express validator gives the validation result //Route1
 router.post('/createuser', [
-    body('name', 'Enter a valid name').isLength({ min: 2 }),
-    body('email', 'Enter a valid email').isEmail(),
+    body('name', 'Enter a valid name').isLength({ min: 2 }).exists(),
+    body('email', 'Enter a valid email').isEmail().exists(),
     body('password', 'The password must include a digit and should be of atleast 8 digits').isLength({ min: 8 }).matches(/\d/)
 ],
     async (req, res) => {
@@ -61,7 +61,7 @@ router.post('/createuser', [
 
             if (user) {
                 console.log("email id exists")
-                return res.status(400).json({ msg: "email-id already exists" })
+                return res.status(400).json({ error: "email-id already exists" })
             }
             //create hashed password adding salt using bcryptjs and store in db
             const salt = await bcrypt.genSalt(10);
