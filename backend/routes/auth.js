@@ -43,7 +43,7 @@ const client = twilio(accountSid, authToken);
 //SignUp route(create an user) express validator gives the validation result //Route1
 router.post('/createuser', [
     body('name', 'Enter a valid name').isLength({ min: 2 }),
-    body('email', 'Enter a valid email').exists(),
+    body('email', 'Enter a valid email').exists().isEmail(),
     body('password', 'The password must include a digit and should be of atleast 8 digits').isLength({ min: 8 }).matches(/\d/)
 ],
     async (req, res) => {
