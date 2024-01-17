@@ -37,7 +37,7 @@ const SignupForm = () => {
                 // Redirect or perform other actions
             }
             else if (response.status === 400) {
-                alert("msg:", response.error);
+                alert("Email already in use Login instead");
                 navigate('/login')
             }
             else {

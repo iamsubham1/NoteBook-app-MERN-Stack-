@@ -55,7 +55,7 @@ router.post('/createuser', [
                 const errorMessages = errors.array().map(error => {
                     return { msg: `${error.msg}` };
                 });
-                return res.status(400).json({ error: errorMessages });
+                return res.status(401).json({ error: errorMessages });
             }
             let user = await User.findOne({ email: req.body.email });
 
