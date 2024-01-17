@@ -20,7 +20,7 @@ const ViewNotes = () => {
 
     };
 
-    const fetchNotes = useCallback(async () => {
+    const fetchNotes = async () => {
         try {
             setLoading(true);
             const response = await fetch('/api/notes/fetch', {
@@ -43,7 +43,7 @@ const ViewNotes = () => {
         } finally {
             setLoading(false);
         }
-    }, [setLoading, setNotes, setError]);
+    };
 
     const deleteNote = async (noteid) => {
         try {
@@ -143,7 +143,7 @@ const ViewNotes = () => {
     //re render component on title change
     useEffect(() => {
         searchNote();
-    }, [title, searchNote, fetchNotes]);
+    }, [title, searchNote,]);
     return (
         <div className='container1'>
             <h2>Your Notes</h2>
