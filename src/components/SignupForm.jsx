@@ -42,7 +42,7 @@ const SignupForm = () => {
             }
             else {
 
-                alert('form cannot be blank');
+                alert(error);
 
             }
 
