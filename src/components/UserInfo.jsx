@@ -28,7 +28,7 @@ const UserInfo = () => {
             formData.append('photo', file);
 
             console.log('Sending file to server...');
-            const response = await fetch('/api/auth/upload', {
+            const response = await fetch('https://quickmemo-backend.onrender.com/api/auth/upload', {
                 method: 'POST',
                 headers: {
                     'JWT': getCookie('JWT'),
