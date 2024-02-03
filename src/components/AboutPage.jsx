@@ -41,7 +41,7 @@ const AboutPage = () => {
                     <i className="fa-brands fa-js"></i>
                     <i className="fa-brands fa-react"></i>
                     <i className="fa-brands fa-node"></i>
-                    <img src={firebase} alt='firebase' style={imageStyle} />
+                   
                     <img src={mongodb} alt='mongodb' style={imageStyle1} />
                     <img src={express} alt='express.js' style={imageStyle1} />
 
