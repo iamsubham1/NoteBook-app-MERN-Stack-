@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import './css/AboutPage.css'
 import mongodb from '../assets/mongodb-ar21.svg'
 import express from '../assets/expressjs-ar21.svg'
-import firebase from '../assets/firebase-icon.svg'
 import { getCookie } from '../utils/getCookie';
 import { useNavigate } from 'react-router-dom'
 const AboutPage = () => {
@@ -16,12 +15,7 @@ const AboutPage = () => {
         }
         // If token is present, user stays on the home page
     }, [navigate]);
-    const imageStyle = {
-
-        maxHeight: '11vh'
-
-
-    };
+    
     const imageStyle1 = {
         maxHeight: '12vh'
     };
